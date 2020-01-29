@@ -13,28 +13,31 @@ import * as firebase from 'firebase';
 export class ListService {
 
   list: TodoList;
+  db: firebase.firestore.Firestore;
 
-  constructor() { 
+  constructor() {
     const item: TodoItem = {uuid: '0', name: 'First Item', desc: 'Super cool', complete: false};
     this.list = {uuid : '0', name: 'First List', items: [item]};
-
-    // Initialize Cloud Firestore through Firebase
-    firebase.initializeApp({
-      apiKey: 'AIzaSyDOTqSNQT_r5Gpo9tGBoQl8rV8vZLOPT_o',
-      authDomain: '### FIREBASE AUTH DOMAIN ###',
-      projectId: 'todolist-8b030'
-    });
-
-    var db = firebase.firestore();
+    this.db = firebase.firestore();
   }
 
-  get(): TodoList {
-    return this.list;
+  get(): Promise<void | TodoList> {
+    return this.db.collection('todos').get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+          //this.list = doc.data();
+      });
+    });
+    // return this.list;
   }
 
   post(item: TodoItem): void {
     item.uuid = this.list.items.length.toString();
     this.list.items.push(item);
+    this.db.collection('todos').add({
+      name: item.name,
+      desc: item.desc,
+      complete: item.complete,
+    });
   }
 
   delete(item: TodoItem): void {
