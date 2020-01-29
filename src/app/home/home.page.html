@@ -1,14 +1,24 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>
+            TodoList
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+    <ion-list>
+        <ion-item *ngFor="let i of this.listService.get().items">
+            <ion-input type="text" value="{{i.name}}" (input)="onChange(i);"></ion-input>
+            <ion-input type="text" value="{{i.desc}}" (input)="onChange(i);"></ion-input>
+            <ion-input type="text" value="{{i.complete}}" (input)="onChange(i);"></ion-input>
+            <ion-button color="secondary" (click)='onDelete(i);'>X</ion-button>
+        </ion-item>
+    </ion-list>
+</ion-content>
+
+<ion-content>
+    <ion-input type="text" placeholder="Name" [(ngModel)]="this.item.name "></ion-input>
+    <ion-input type="text" placeholder="Description" [(ngModel)]="this.item.desc"></ion-input>
+    <ion-button color="primary" (click)='onAdd();'>Add item</ion-button>
 </ion-content>
