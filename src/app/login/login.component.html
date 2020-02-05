@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Login of logins
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div *ngIf="this.afAuth.user | async as user; else this.showLogin">
+    <h1>Hello {{ user.displayName }}!</h1>
+    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="logout()">
+      Logout</ion-button>
+    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="profile()">
+      Profile</ion-button>
+  </div>
+  <ng-template #showLogin>
+    <form (ngSubmit)="this.login()" #addListForm="ngForm">
+      <ion-list lines="full" class="ion-no-margin ion-no-padding">
+        <ion-item>
+          <ion-label position="stacked">Username <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input required id="username" type="text" name="username" [(ngModel)]="username" #ctrlTitle="ngModel">
+          </ion-input>
+          <ion-text [hidden]="ctrlTitle.valid || ctrlTitle.pristine || name" color="danger">Username is required</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Password <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input required id="password" type="password" name="password" [(ngModel)]="password" #ctrlTitle="ngModel">
+          </ion-input>
+          <ion-text [hidden]="ctrlTitle.valid || ctrlTitle.pristine || name" color="danger">Password is required</ion-text>
+        </ion-item>
+      </ion-list>
+      <div class="ion-padding">
+        <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!addListForm.valid">
+          Login</ion-button>
+      </div>
+    </form>
+    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="login()">
+      Google Login</ion-button>
+  </ng-template>
+</ion-content>
