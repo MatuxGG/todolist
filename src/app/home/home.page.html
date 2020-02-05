@@ -1,33 +1,14 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-title>
-            TodoList
-        </ion-title>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-title>
+      Ionic Blank
+    </ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-list>
-        <ion-item *ngFor="let list of this.listService.get() | async">
-            <ion-input type="text" value="{{list.id}}" (input)="onChange(list);"></ion-input>
-            <ion-input type="text" value="{{list.name}}" (input)="onChange(list);"></ion-input>
-            <ion-item *ngFor="let item of list.items">
-                <ion-input type="text" value="{{item.name}}" (input)="onChange(list);"></ion-input>
-                <ion-input type="text" value="{{item.desc}}" (input)="onChange(list);"></ion-input>
-                <ion-input type="text" value="{{item.complete}}" (input)="onChange(list);"></ion-input>
-            </ion-item>
-            <ion-content>
-                <ion-input type="text" placeholder="Name" [(ngModel)]="this.item.name "></ion-input>
-                <ion-input type="text" placeholder="Description" [(ngModel)]="this.item.desc"></ion-input>
-                <ion-button color="primary" (click)='onAddItem(list);'>Add item</ion-button>
-            </ion-content>
-            <ion-button color="secondary" (click)='onDelete(list);'>X</ion-button>
-        </ion-item>
-    </ion-list>
-</ion-content>
-
-<ion-content>
-    <ion-input type="text" placeholder="Name" [(ngModel)]="this.listAdd.name "></ion-input>
-    <ion-input type="text" placeholder="Description" [(ngModel)]="this.listAdd"></ion-input>
-    <ion-button color="primary" (click)='onAddList();'>Add list</ion-button>
+  <div class="ion-padding">
+    The world is your oyster.
+    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+  </div>
 </ion-content>
