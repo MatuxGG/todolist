@@ -9,13 +9,13 @@
 <ion-content fullscreen>
   <div *ngIf="this.afAuth.user | async as user; else this.showLogin">
     <h1>Hello {{ user.displayName }}!</h1>
-    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="logout()">
+    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="this.logout()">
       Logout</ion-button>
-    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="profile()">
+    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="this.profile()">
       Profile</ion-button>
   </div>
   <ng-template #showLogin>
-    <form (ngSubmit)="this.login()" #addListForm="ngForm">
+    <form (ngSubmit)="this.googleLogin()" #addListForm="ngForm">
       <ion-list lines="full" class="ion-no-margin ion-no-padding">
         <ion-item>
           <ion-label position="stacked">Username <ion-text color="danger">*</ion-text>
@@ -37,7 +37,7 @@
           Login</ion-button>
       </div>
     </form>
-    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="login()">
+    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="this.googleLogin()">
       Google Login</ion-button>
   </ng-template>
 </ion-content>

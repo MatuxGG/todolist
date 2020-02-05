@@ -1,9 +1,10 @@
-import { redirectLoggedInTo } from '@angular/fire/auth-guard';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
+import { Platform } from 'ionic-angular';
 import { Router } from '@angular/router';
-import { GooglePlus } from '@ionic-native/google-plus/npx';
+import { GooglePlus } from '@ionic-native/google-plus';
+import { Observable } from 'rxjs';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-login',
@@ -14,31 +15,53 @@ export class LoginComponent implements OnInit {
 
   username: string;
   password: string;
+  user: Observable<firebase.User>;
 
-  constructor(public afAuth: AngularFireAuth, private router: Router) { }
+  constructor(
+    public afAuth: AngularFireAuth,
+    private gplus: GooglePlus,
+    private platform: Platform,
+    private router: Router) {
+    this.user = this.afAuth.authState;
+  }
 
   ngOnInit() {}
 
+  async nativeGoogleLogin(): Promise<void> {
+    try {
+      const gplusUser = await this.gplus.login({
+        webClientId: 'your-webClientId-XYZ.apps.googleusercontent.com',
+        offline: true,
+        scopes: 'profile email'
+      });
+      await this.afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async webGoogleLogin(): Promise<void> {
+    try {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      const credential = await this.afAuth.auth.signInWithPopup(provider);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  googleLogin() {
+    if (this.platform.is('cordova')) {
+      this.nativeGoogleLogin();
+    } else {
+      this.webGoogleLogin();
+    }
+  }
+
+  signOut() {
+    this.afAuth.auth.signOut();
+  }
+
   login() {
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then( (result) => {
-      if (result.credential) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const token = result.credential.accessToken;
-        console.log(token);
-      }
-      // The signed-in user info.
-      const user = result.user;
-      console.log(user);
-    }).catch( (error) =>  {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      const credential = error.credential;
-      console.log(errorCode, errorMessage, email, credential);
-    });
   }
 
   logout() {
