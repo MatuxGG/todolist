@@ -12,10 +12,10 @@ export class TodoslistService {
   private todosCollection: AngularFirestoreCollection<Todo>;
 
   private todos: Observable<Array<Todo>>;
-  
+
   constructor(private db: AngularFirestore) {
     this.todosCollection = db.collection<Todo>('todos');
- 
+
     this.todos = this.todosCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -26,7 +26,7 @@ export class TodoslistService {
       })
     );
   }
-  
+
   get(): Observable<Array<Todo>> {
     return this.todos;
   }
@@ -35,7 +35,7 @@ export class TodoslistService {
     return this.todosCollection.add(todo);
   }
 
-  delete(todo: Todo){
+  delete(todo: Todo) {
     return this.todosCollection.doc(todo.id).delete();
   }
 

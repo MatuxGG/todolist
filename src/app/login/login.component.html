@@ -7,37 +7,46 @@
 </ion-header>
 
 <ion-content fullscreen>
-  <div *ngIf="this.afAuth.user | async as user; else this.showLogin">
+  <div *ngIf="this.authService.isLoggedIn else this.showLogin">
     <h1>Hello {{ user.displayName }}!</h1>
-    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="this.logout()">
+    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="this.authService.Logout()">
       Logout</ion-button>
     <ion-button expand="block" type="submit" class="ion-no-margin" (click)="this.profile()">
       Profile</ion-button>
   </div>
   <ng-template #showLogin>
-    <form (ngSubmit)="this.googleLogin()" #addListForm="ngForm">
-      <ion-list lines="full" class="ion-no-margin ion-no-padding">
-        <ion-item>
-          <ion-label position="stacked">Username <ion-text color="danger">*</ion-text>
-          </ion-label>
-          <ion-input required id="username" type="text" name="username" [(ngModel)]="username" #ctrlTitle="ngModel">
-          </ion-input>
-          <ion-text [hidden]="ctrlTitle.valid || ctrlTitle.pristine || name" color="danger">Username is required</ion-text>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Password <ion-text color="danger">*</ion-text>
-          </ion-label>
-          <ion-input required id="password" type="password" name="password" [(ngModel)]="password" #ctrlTitle="ngModel">
-          </ion-input>
-          <ion-text [hidden]="ctrlTitle.valid || ctrlTitle.pristine || name" color="danger">Password is required</ion-text>
-        </ion-item>
-      </ion-list>
-      <div class="ion-padding">
-        <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!addListForm.valid">
-          Login</ion-button>
-      </div>
+    <form>
+      <ion-item lines="full">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="text" #email required></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" #password required></ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+        <ion-button type="submit" (click)="logIn(email, password)" expand="block">Login</ion-button>
+        </ion-col>
+      </ion-row>
     </form>
-    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="this.googleLogin()">
-      Google Login</ion-button>
+    <form>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="danger" (click)="this.authService.GoogleAuth()" expand="block">
+             Login with Google
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+    <form>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="danger" (click)="this.register()" expand="block">
+             Against GAFA ? Register !
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
   </ng-template>
 </ion-content>

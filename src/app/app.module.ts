@@ -1,3 +1,5 @@
+import { RegistrationComponent } from './registration/registration.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,7 +18,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent, LoginComponent, VerifyEmailComponent, RegistrationComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
