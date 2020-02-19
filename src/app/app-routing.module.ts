@@ -1,10 +1,16 @@
+import { ProfileComponent } from './profile/profile.component';
+import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { NoPreloading, RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'register', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
   {
     path: 'register',
     component: RegisterComponent
@@ -12,6 +18,10 @@ const routes: Routes = [
   {
     path: 'verify-email',
     component: VerifyEmailComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent
   },
   {
     path: 'todoslist',

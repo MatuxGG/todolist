@@ -1,0 +1,56 @@
+<p>
+  login works!
+</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Login of logins
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div *ngIf="this.isLoggedIn() else this.showLogin">
+    <h1>Hello {{ this.user.displayName }}!</h1>
+    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="this.logout()">
+      Logout</ion-button>
+    <ion-button expand="block" type="submit" class="ion-no-margin" (click)="this.profile()">
+      Profile</ion-button>
+  </div>
+  <ng-template #showLogin>
+    <form (ngSubmit)="this.logIn(email, password)" #loginForm="ngForm">
+      <ion-item lines="full">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="text" #email required></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" #password required></ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!loginForm.valid">
+            Login</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+    <form>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="danger" (click)="this.googleAuth()" expand="block">
+             Login with Google
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+    <form>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="danger" (click)="this.register()" expand="block">
+             Against GAFA ? Register !
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ng-template>
+</ion-content>

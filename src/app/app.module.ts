@@ -15,9 +15,15 @@ import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { RegisterComponent } from './register/register.component';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
-  declarations: [AppComponent, RegisterComponent, VerifyEmailComponent],
+  declarations: [AppComponent,
+                 LoginComponent,
+                 RegisterComponent,
+                 VerifyEmailComponent,
+                 ProfileComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
