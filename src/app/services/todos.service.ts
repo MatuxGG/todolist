@@ -7,16 +7,16 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class TodoService {
+export class TodosService {
 
-  private todoCollection: AngularFirestoreCollection<Todo>;
+  private todosCollection: AngularFirestoreCollection<Todo>;
 
-  private todo: Observable<Array<Todo>>;
+  private todos: Observable<Array<Todo>>;
 
   constructor(private db: AngularFirestore) {
-    this.todoCollection = db.collection<Todo>('todo');
+    this.todosCollection = db.collection<Todo>('todos');
  
-    this.todo = this.todoCollection.snapshotChanges().pipe(
+    this.todos = this.todosCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
@@ -28,14 +28,14 @@ export class TodoService {
    }
 
   get(): Observable<Array<Todo>> {
-    return this.todo;
+    return this.todos;
   }
 
   add(todo: Todo) {
-    return this.todoCollection.add(todo);
+    return this.todosCollection.add(todo);
   }
 
   delete(todo: Todo){
-    return this.todoCollection.doc(todo.id).delete();
+    return this.todosCollection.doc(todo.id).delete();
   }
 }

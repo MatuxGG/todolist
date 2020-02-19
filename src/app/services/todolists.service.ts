@@ -8,16 +8,16 @@ import { Todolist } from '../model/todolist';
 @Injectable({
   providedIn: 'root'
 })
-export class TodoslistService {
+export class TodolistsService {
 
-  private todolistCollection: AngularFirestoreCollection<Todolist>;
+  private todolistsCollection: AngularFirestoreCollection<Todolist>;
 
-  private todolist: Observable<Array<Todolist>>;
+  private todolists: Observable<Array<Todolist>>;
   
   constructor(private db: AngularFirestore) {
-    this.todolistCollection = db.collection<Todolist>('todolist');
+    this.todolistsCollection = db.collection<Todolist>('todolists');
  
-    this.todolist = this.todolistCollection.snapshotChanges().pipe(
+    this.todolists = this.todolistsCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
@@ -29,15 +29,15 @@ export class TodoslistService {
   }
   
   get(): Observable<Array<Todolist>> {
-    return this.todolist;
+    return this.todolists;
   }
 
   add(todolist: Todolist) {
-    return this.todolistCollection.add(todolist);
+    return this.todolistsCollection.add(todolist);
   }
 
   delete(todolist: Todolist){
-    return this.todolistCollection.doc(todolist.id).delete();
+    return this.todolistsCollection.doc(todolist.id).delete();
   }
 
 }
