@@ -1,8 +1,18 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { NoPreloading, RouterModule, Routes } from '@angular/router';
+import { RegisterComponent } from './register/register.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'todoslist', pathMatch: 'full' },
+  { path: '', redirectTo: 'register', pathMatch: 'full' },
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
+  {
+    path: 'verify-email',
+    component: VerifyEmailComponent
+  },
   {
     path: 'todoslist',
     loadChildren: () => import('./todoslist/todoslist.module').then( m => m.TodoslistPageModule)
@@ -15,7 +25,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: NoPreloading })
   ],
   exports: [RouterModule]
 })
