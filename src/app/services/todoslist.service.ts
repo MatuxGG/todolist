@@ -3,20 +3,21 @@ import { Todo } from '../model/todo';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Todolist } from '../model/todolist';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoslistService {
 
-  private todosCollection: AngularFirestoreCollection<Todo>;
+  private todolistCollection: AngularFirestoreCollection<Todolist>;
 
-  private todos: Observable<Array<Todo>>;
+  private todolist: Observable<Array<Todolist>>;
   
   constructor(private db: AngularFirestore) {
-    this.todosCollection = db.collection<Todo>('todos');
+    this.todolistCollection = db.collection<Todolist>('todolist');
  
-    this.todos = this.todosCollection.snapshotChanges().pipe(
+    this.todolist = this.todolistCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
@@ -27,16 +28,16 @@ export class TodoslistService {
     );
   }
   
-  get(): Observable<Array<Todo>> {
-    return this.todos;
+  get(): Observable<Array<Todolist>> {
+    return this.todolist;
   }
 
-  add(todo: Todo) {
-    return this.todosCollection.add(todo);
+  add(todolist: Todolist) {
+    return this.todolistCollection.add(todolist);
   }
 
-  delete(todo: Todo){
-    return this.todosCollection.doc(todo.id).delete();
+  delete(todolist: Todolist){
+    return this.todolistCollection.doc(todolist.id).delete();
   }
 
 }
