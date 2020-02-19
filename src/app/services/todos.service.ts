@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Todo } from '../model/todo';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestoreDocument, AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TodoslistService {
+export class TodosService {
 
   private todosCollection: AngularFirestoreCollection<Todo>;
 
   private todos: Observable<Array<Todo>>;
-  
+
   constructor(private db: AngularFirestore) {
     this.todosCollection = db.collection<Todo>('todos');
  
@@ -25,8 +25,8 @@ export class TodoslistService {
         });
       })
     );
-  }
-  
+   }
+
   get(): Observable<Array<Todo>> {
     return this.todos;
   }
@@ -38,5 +38,4 @@ export class TodoslistService {
   delete(todo: Todo){
     return this.todosCollection.doc(todo.id).delete();
   }
-
 }

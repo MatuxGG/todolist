@@ -25,11 +25,19 @@ const routes: Routes = [
   },
   {
     path: 'todoslist',
-    loadChildren: () => import('./todoslist/todoslist.module').then( m => m.TodoslistPageModule)
+    loadChildren: () => import('./todolist/todolist.module').then( m => m.TodolistPageModule)
   },
   {
     path: 'addtodo',
     loadChildren: () => import('./addtodo/addtodo.module').then( m => m.AddtodoPageModule)
+  },
+  {
+    path: 'todolists',
+    loadChildren: () => import('./todolists/todolists.module').then( m => m.TodolistsPageModule)
+  },
+  {
+    path: 'addtodolist',
+    loadChildren: () => import('./addtodolist/addtodolist.module').then( m => m.addTodolistPageModule)
   },
 ];
 

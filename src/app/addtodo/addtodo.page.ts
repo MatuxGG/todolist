@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Todo } from '../model/todo';
-import { TodoslistService } from '../services/todoslist.service';
+import { TodosService } from '../services/todos.service';
 
 @Component({
   selector: 'app-addtodo',
@@ -12,7 +12,7 @@ export class AddtodoPage implements OnInit {
 
   title: string;
 
-  constructor(private listService: TodoslistService,
+  constructor(private todosService: TodosService,
     private router: Router) { }
 
   ngOnInit() {
@@ -20,7 +20,7 @@ export class AddtodoPage implements OnInit {
 
   addList(){
     let item = { title: this.title, isDone: false } as Todo;
-    this.listService.add(item);
+    this.todosService.add(item);
     this.router.navigate(['']);
   }
 }
