@@ -1,3 +1,4 @@
+import { AuthenticationService } from './authentication.service';
 import { Injectable } from '@angular/core';
 import { Todo } from '../model/todo';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
@@ -9,14 +10,13 @@ import { Todolist } from '../model/todolist';
   providedIn: 'root'
 })
 export class TodolistsService {
-
   private todolistsCollection: AngularFirestoreCollection<Todolist>;
-
   private todolists: Observable<Array<Todolist>>;
-  
-  constructor(private db: AngularFirestore) {
-    this.todolistsCollection = db.collection<Todolist>('todolists');
- 
+
+  constructor(public authService: AuthenticationService, private db: AngularFirestore) { }
+
+  initialize(userUid: string): void {
+    this.todolistsCollection = this.db.collection<Todolist>('todolists', ref => ref.where('owner', '==', userUid));
     this.todolists = this.todolistsCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -27,7 +27,7 @@ export class TodolistsService {
       })
     );
   }
-  
+
   get(): Observable<Array<Todolist>> {
     return this.todolists;
   }

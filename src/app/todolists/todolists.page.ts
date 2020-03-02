@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { TodolistsService } from '../services/todolists.service';
 import { Observable } from 'rxjs';
@@ -12,12 +13,25 @@ import { Router } from '@angular/router';
 export class TodolistsPage implements OnInit {
 
   private todolist$: Observable<Array<Todolist>>;
+  private user: firebase.User;
 
-  constructor(private todolistsService: TodolistsService, private router: Router) {
+  constructor(private authService: AuthenticationService, private todolistsService: TodolistsService, private router: Router) {
   }
 
   ngOnInit() {
-    this.todolist$ = this.todolistsService.get();
+    this.initialize();
+  }
+
+  initialize(): void {
+    this.authService.getUser().subscribe(
+      user => {
+        this.user = user;
+        if (this.user !== undefined) {
+          this.todolistsService.initialize(this.user.uid);
+        }
+        this.todolist$ = this.todolistsService.get();
+      }
+    );
   }
 
   moveToTodolist(todolist: Todolist) {

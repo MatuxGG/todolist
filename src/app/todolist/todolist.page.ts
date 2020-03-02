@@ -18,14 +18,14 @@ export class TodolistPage implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      let id = params['id'];
+      const id = params.id;
       console.log(id);
       this.todoService.initialize(id);
     });
     this.todos$ = this.todoService.get();
-  }  
+  }
 
-  delete(todo: Todo){
+  delete(todo: Todo) {
     this.todoService.delete(todo);
   }
 }
