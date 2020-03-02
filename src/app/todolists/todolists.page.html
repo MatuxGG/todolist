@@ -10,7 +10,7 @@
 <ion-content fullscreen>
     <ion-list>
         <ion-item-sliding *ngFor="let todolist of todolist$ | async">
-            <ion-item>
+            <ion-item (click)="moveToTodolist(todolist)">
                 <ion-label>
                     <h2>{{ todolist.title }}</h2>
                 </ion-label>

@@ -26,6 +26,6 @@ export class addTodolistPage implements OnInit {
   addList(){
     let item = { title: this.title, todos: this.todos } as Todolist;
     this.todolistsService.add(item);
-    this.router.navigate(['']);
+    window.history.back();
   }
 }

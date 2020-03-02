@@ -24,7 +24,7 @@ const routes: Routes = [
     component: ProfileComponent
   },
   {
-    path: 'todoslist',
+    path: 'todolist',
     loadChildren: () => import('./todolist/todolist.module').then( m => m.TodolistPageModule)
   },
   {
