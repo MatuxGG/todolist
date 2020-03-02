@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { auth } from 'firebase';
@@ -10,7 +11,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  userData: any;
+  userData: Observable<firebase.User>;
 
   constructor(
     public afStore: AngularFirestore,
@@ -18,9 +19,9 @@ export class AuthenticationService {
     public router: Router,
     public ngZone: NgZone,
   ) {
+    this.userData = this.ngFireAuth.authState;
     this.ngFireAuth.authState.subscribe(user => {
       if (user) {
-        this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user'));
       } else {
@@ -28,6 +29,10 @@ export class AuthenticationService {
         JSON.parse(localStorage.getItem('user'));
       }
     });
+  }
+
+  getUser(): Observable<firebase.User> {
+    return this.userData;
   }
 
   // Login in with email/password
@@ -64,6 +69,7 @@ export class AuthenticationService {
   // Returns true when user's email is verified
   get isEmailVerified(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
+    console.log('Email verified : ' + (user.emailVerified !== false) ? true : false);
     return (user.emailVerified !== false) ? true : false;
   }
 

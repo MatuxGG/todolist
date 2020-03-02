@@ -1,3 +1,27 @@
-<p>
-  profile works!
-</p>
+<div *ngIf="this.getUser() != undefined">
+  <ion-header>
+    <ion-toolbar>
+    <ion-title>
+        Profile of {{ this.getUser().displayName }}
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-item>
+    <ion-label>ID utilisateur : {{ this.getUser().uid }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>Email : {{ this.getUser().email }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>Email verified ? {{ this.getUser().emailVerified }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>Photo url : {{ this.getUser().photoURL }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-button type="submit" (click)="this.todolists()" expand="block">
+      My Todo Lists
+   </ion-button>
+  </ion-item>
+</div>
