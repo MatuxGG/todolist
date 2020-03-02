@@ -24,4 +24,8 @@ export class ProfileComponent implements OnInit {
   getUser(): firebase.User {
     return this.user;
   }
+
+  todolists(): void {
+    this.router.navigate(['todolists']);
+  }
 }
