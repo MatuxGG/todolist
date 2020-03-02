@@ -13,7 +13,8 @@ export class TodolistsPage implements OnInit {
 
   private todolist$: Observable<Array<Todolist>>;
 
-  constructor(private todolistsService: TodolistsService, private router: Router) {}
+  constructor(private todolistsService: TodolistsService, private router: Router) {
+  }
 
   ngOnInit() {
     this.todolist$ = this.todolistsService.get();
