@@ -14,8 +14,11 @@ export class TodosService {
   private todos: Observable<Array<Todo>>;
 
   constructor(private db: AngularFirestore) {
-    this.todosCollection = db.collection<Todo>('todos');
- 
+  
+   }
+
+  initialize(id) : void {
+    this.todosCollection = this.db.collection<Todo>('todos'+id);
     this.todos = this.todosCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -25,7 +28,7 @@ export class TodosService {
         });
       })
     );
-   }
+  }
 
   get(): Observable<Array<Todo>> {
     return this.todos;
