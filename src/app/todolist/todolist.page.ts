@@ -13,19 +13,30 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class TodolistPage implements OnInit {
 
   private todos$: Observable<Array<Todo>>;
+  private listUid: string;
 
-  constructor(private todoService: TodosService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private todoService: TodosService, private route: ActivatedRoute, private router: Router) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      const id = params.id;
-      console.log(id);
-      this.todoService.initialize(id);
+      this.listUid = params.id;
+      console.log(this.listUid);
+      this.todoService.initialize(this.listUid);
     });
     this.todos$ = this.todoService.get();
   }
 
   delete(todo: Todo) {
     this.todoService.delete(todo);
+  }
+
+  addNewTodo() {
+    this.router.navigate(['/addtodo'], { queryParams: { listUid: this.listUid } });
+  }
+
+  backToAllList() {
+    this.router.navigate(['/todolists']);
   }
 }

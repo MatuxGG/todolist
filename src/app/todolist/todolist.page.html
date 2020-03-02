@@ -23,8 +23,10 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
-  <section>   
-  <ion-button expand="block" [routerDirection]="'root'"
-  [routerLink]="'/addtodo'">Add a New Todo</ion-button>
-  </section>
+  <ion-item>
+    <ion-button expand="block" (click)="addNewTodo()">Add a New Todo</ion-button>
+  </ion-item>
+  <ion-item>
+    <ion-button expand="block" (click)="backToAllList()">Back to all lists</ion-button>
+  </ion-item>
 </ion-content>

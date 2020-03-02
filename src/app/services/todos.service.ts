@@ -33,10 +33,16 @@ export class TodosService {
   }
 
   add(todo: Todo) {
+    if (this.todosCollection === undefined) {
+      this.initialize(todo.list);
+    }
     return this.todosCollection.add(todo);
   }
 
   delete(todo: Todo) {
+    if (this.todosCollection === undefined) {
+      this.initialize(todo.list);
+    }
     return this.todosCollection.doc(todo.id).delete();
   }
 }
