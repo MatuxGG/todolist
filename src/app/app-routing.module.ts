@@ -1,3 +1,4 @@
+import { Todo } from './model/todo';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
@@ -42,6 +43,9 @@ const routes: Routes = [
   {
     path: 'todolistshare',
     loadChildren: () => import('./todolistshare/todolistshare.module').then( m => m.TodolistsharePageModule)
+  },
+    path: 'todo',
+    loadChildren: () => import('./todo/todo.module').then( m => m.TodoPageModule)
   },
 ];
 

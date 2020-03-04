@@ -30,6 +30,10 @@ export class TodolistPage implements OnInit {
     this.todos$ = this.todoService.get();
   }
 
+  edit(todo: Todo) {
+    this.router.navigate(['/todo'], { queryParams: { id: todo.id } });
+  }
+
   delete(todo: Todo) {
     this.todoService.delete(todo);
   }
