@@ -29,7 +29,7 @@ export class TodolistPage implements OnInit {
   }
 
   edit(todo: Todo) {
-    this.router.navigate(['/todo'], { queryParams: { todoUid: todo.id } });
+    this.router.navigate(['/todo'], { queryParams: { id: todo.id } });
   }
 
   delete(todo: Todo) {

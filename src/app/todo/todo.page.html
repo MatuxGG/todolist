@@ -8,12 +8,14 @@
 </ion-header>
 
 <ion-content fullscreen>
-    <ion-item>
+
+    <ion-item *ngIf="async">
         <ion-label>
-            <h2>{{ todo.title }}</h2>
+            <h2>{{ todo$.title }}</h2>
         </ion-label>
         <ion-label>
-            {{ todo.isDone }}
+            {{ todo$.isDone }}
         </ion-label>
     </ion-item>
+
 </ion-content>

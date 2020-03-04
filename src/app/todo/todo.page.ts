@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Todo } from '../model/todo';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TodosService } from '../services/todos.service';
+import { TodoService } from '../services/todo.service';
 
 @Component({
   selector: 'app-todo',
@@ -11,10 +11,10 @@ import { TodosService } from '../services/todos.service';
 })
 export class TodoPage implements OnInit {
 
-  private todo: Observable<Todo>;
+  private todo$: Observable<Todo>;
   private todoUid: string;
 
-  constructor(private todoService: TodosService, private route: ActivatedRoute, private router: Router) {
+  constructor(private todoService: TodoService, private route: ActivatedRoute, private router: Router) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
    }
 
@@ -24,7 +24,9 @@ export class TodoPage implements OnInit {
       console.log(this.todoUid);
       this.todoService.initialize(this.todoUid);
     });
-    this.todo = this.todoService.getTodo(this.todoUid);
+    this.todo$ = this.todoService.get();
+    console.log("this.todo");
+    console.log(this.todo$);
   }
 
 }
