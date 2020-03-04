@@ -1,5 +1,5 @@
+import { Todo } from './../model/todo';
 import { Injectable } from '@angular/core';
-import { Todo } from '../model/todo';
 import { AngularFirestoreDocument, AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TodosService {
+  
 
   private todosCollection: AngularFirestoreCollection<Todo>;
   private todos: Observable<Array<Todo>>;
@@ -30,6 +31,15 @@ export class TodosService {
 
   get(): Observable<Array<Todo>> {
     return this.todos;
+  }
+
+  getTodo(todoUid: string): Observable<Todo> {
+    this.todos.pipe(
+      map(actions => {
+        return actions.find(todo => todo.id === todoUid);
+      })
+    );
+    return null;
   }
 
   add(todo: Todo) {

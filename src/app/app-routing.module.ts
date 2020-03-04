@@ -1,3 +1,4 @@
+import { Todo } from './model/todo';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
@@ -39,6 +40,11 @@ const routes: Routes = [
     path: 'addtodolist',
     loadChildren: () => import('./addtodolist/addtodolist.module').then( m => m.addTodolistPageModule)
   },
+  {
+    path: 'todo',
+    loadChildren: () => import('./todo/todo.module').then( m => m.TodoPageModule)
+  },
+
 ];
 
 @NgModule({

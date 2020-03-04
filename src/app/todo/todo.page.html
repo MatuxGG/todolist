@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="todolists"></ion-back-button>
+        </ion-buttons>
+        <ion-title>todo</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+    <ion-item>
+        <ion-label>
+            <h2>{{ todo.title }}</h2>
+        </ion-label>
+        <ion-label>
+            {{ todo.isDone }}
+        </ion-label>
+    </ion-item>
+</ion-content>
