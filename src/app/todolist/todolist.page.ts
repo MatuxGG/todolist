@@ -35,8 +35,4 @@ export class TodolistPage implements OnInit {
   addNewTodo() {
     this.router.navigate(['/addtodo'], { queryParams: { listUid: this.listUid } });
   }
-
-  backToAllList() {
-    this.router.navigate(['/todolists']);
-  }
 }

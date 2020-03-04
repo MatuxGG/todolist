@@ -1,3 +1,4 @@
+import { Todo } from './../model/todo';
 import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { TodolistsService } from '../services/todolists.service';
