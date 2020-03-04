@@ -15,7 +15,9 @@ export class TodolistPage implements OnInit {
   private todos$: Observable<Array<Todo>>;
   private listUid: string;
 
-  constructor(private todoService: TodosService, private route: ActivatedRoute, private router: Router) {
+  constructor(private todoService: TodosService,
+              private route: ActivatedRoute,
+              private router: Router) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
@@ -38,5 +40,9 @@ export class TodolistPage implements OnInit {
 
   backToAllList() {
     this.router.navigate(['/todolists']);
+  }
+
+  shareToDoList() {
+    this.router.navigate(['/todolistshare'], { queryParams: { listUid: this.listUid } });
   }
 }

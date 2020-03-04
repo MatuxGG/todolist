@@ -5,7 +5,7 @@ import { auth } from 'firebase';
 import { User } from '../model/user';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
-
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,7 @@ export class AuthenticationService {
     public ngFireAuth: AngularFireAuth,
     public router: Router,
     public ngZone: NgZone,
+    private http: HttpClient
   ) {
     this.userData = this.ngFireAuth.authState;
     this.ngFireAuth.authState.subscribe(user => {
@@ -112,5 +113,9 @@ export class AuthenticationService {
       localStorage.removeItem('user');
       this.router.navigate(['login']);
     });
+  }
+
+  getAllUsers(): Observable<any> {
+    return this.http.get('https://us-central1-todolist-8b030.cloudfunctions.net/api');
   }
 }

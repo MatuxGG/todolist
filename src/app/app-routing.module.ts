@@ -39,6 +39,10 @@ const routes: Routes = [
     path: 'addtodolist',
     loadChildren: () => import('./addtodolist/addtodolist.module').then( m => m.addTodolistPageModule)
   },
+  {
+    path: 'todolistshare',
+    loadChildren: () => import('./todolistshare/todolistshare.module').then( m => m.TodolistsharePageModule)
+  },
 ];
 
 @NgModule({

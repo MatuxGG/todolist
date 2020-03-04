@@ -13,7 +13,6 @@ import { Todolist } from '../model/todolist';
 export class addTodolistPage implements OnInit {
 
   title: string;
-  todos: Todo[];
   user : firebase.User;
 
   constructor(private authService: AuthenticationService,
@@ -27,14 +26,12 @@ export class addTodolistPage implements OnInit {
         if (this.user !== undefined) {
           this.todolistsService.initialize(user.uid);
         }
-        let todo: Todo = { title: "BLU", isDone: false};
-        this.todos = [todo];
       }
     );
   }
 
   addList(){
-    let todolist = { title: this.title, owner: this.user.uid, todos: this.todos } as Todolist;
+    let todolist = { title: this.title, owner: this.user.uid } as Todolist;
     this.todolistsService.add(todolist);
     window.history.back();
   }
