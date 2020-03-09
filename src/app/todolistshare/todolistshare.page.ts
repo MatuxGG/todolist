@@ -14,7 +14,7 @@ export class TodolistsharePage implements OnInit {
 
   constructor(private authService: AuthenticationService,
               private todoListsService: TodolistsService,
-              private route: ActivatedRoute,) {}
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -23,7 +23,7 @@ export class TodolistsharePage implements OnInit {
     });
   }
 
-  shareWithUser(user_email: string): any {
+  /*shareWithUser(user_email: string): any {
     const users = this.getAllUsers();
     const i = users[0].indexOf(user_email);
     const user_uid = users[1][i];
@@ -35,16 +35,17 @@ export class TodolistsharePage implements OnInit {
         todoList.accessReading.push(user_uid);
       }
     );*/
-  }
+  /*}*/
 
-  getAllUsers(): any {
-    this.authService.getAllUsers().subscribe(
-      users => {
+  /*getAllUsers(): any {
+    this.authService.getAllUsers().then(
+      result => {
+        const users = result.data;
         const usersEmailUidList = users.split('\n');
         const emails = [];
         const uuid = [];
         console.log(users);
-        for (let i in usersEmailUidList) {
+        /*for (let i in usersEmailUidList) {
           console.log(i);
           //if ((i % 2) === 0) {
           emails.push(usersEmailUidList[i]);
@@ -52,8 +53,14 @@ export class TodolistsharePage implements OnInit {
           //  uuid.push(usersEmailUidList[i]);
           //}
         }
-        return [emails, uuid];
+        return [emails, uuid];*/
+        /*return "ok";
       }
-    );
-  }
+    ).catch( (error) => {
+      console.log(error.code);
+      console.log(error.message);
+      console.log(error.details);
+      return error;
+    });
+  }*/
 }

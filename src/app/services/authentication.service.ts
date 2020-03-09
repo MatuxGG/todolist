@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { auth } from 'firebase';
+import { functions, auth } from 'firebase';
 import { User } from '../model/user';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -115,7 +115,9 @@ export class AuthenticationService {
     });
   }
 
-  getAllUsers(): Observable<any> {
-    return this.http.get('https://us-central1-todolist-8b030.cloudfunctions.net/api');
-  }
+  /*getAllUsers(): Promise<any> {
+    //return this.http.get('https://us-central1-todolist-8b030.cloudfunctions.net/api').toPromise();
+    return this.http.get('https://www.google.com/').toPromise();
+    //return functions().httpsCallable('getAllUsers')();
+  }*/
 }
