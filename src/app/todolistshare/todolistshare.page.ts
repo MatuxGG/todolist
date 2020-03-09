@@ -1,7 +1,9 @@
+import { Todolist } from './../model/todolist';
 import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { TodolistsService } from '../services/todolists.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-todolistshare',
@@ -11,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class TodolistsharePage implements OnInit {
 
   private listUid: string;
+  private allUsers$: Observable<JSON>;
 
   constructor(private authService: AuthenticationService,
               private todoListsService: TodolistsService,
@@ -18,49 +21,30 @@ export class TodolistsharePage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.listUid = params.id;
+      this.listUid = params.listUid;
       console.log(this.listUid);
     });
+    this.allUsers$ = this.authService.getAllUsers();
+    this.authService.getUser().subscribe(
+      user => {
+        if (user !== undefined) {
+          this.todoListsService.initialize(user.uid);
+        }
+      }
+    );
   }
 
-  /*shareWithUser(user_email: string): any {
-    const users = this.getAllUsers();
-    const i = users[0].indexOf(user_email);
-    const user_uid = users[1][i];
-    /*this.todoListsService.get_uid(this.listUid).subscribe(
-      todoList => {
-        if (todoList.accessReading !== undefined) {
+  shareWithUser(userUid: string): any {
+    this.todoListsService.get_uid(this.listUid).subscribe(
+      todoListDocumentSnapshot => {
+        const todoList: Todolist = todoListDocumentSnapshot.data();
+        todoList.id = todoListDocumentSnapshot.id;
+        if (todoList.accessReading === undefined) {
           todoList.accessReading = [];
         }
-        todoList.accessReading.push(user_uid);
+        todoList.accessReading.push(userUid);
+        this.todoListsService.update_uid(todoList);
       }
-    );*/
-  /*}*/
-
-  /*getAllUsers(): any {
-    this.authService.getAllUsers().then(
-      result => {
-        const users = result.data;
-        const usersEmailUidList = users.split('\n');
-        const emails = [];
-        const uuid = [];
-        console.log(users);
-        /*for (let i in usersEmailUidList) {
-          console.log(i);
-          //if ((i % 2) === 0) {
-          emails.push(usersEmailUidList[i]);
-          //} else {
-          //  uuid.push(usersEmailUidList[i]);
-          //}
-        }
-        return [emails, uuid];*/
-        /*return "ok";
-      }
-    ).catch( (error) => {
-      console.log(error.code);
-      console.log(error.message);
-      console.log(error.details);
-      return error;
-    });
-  }*/
+    );
+  }
 }

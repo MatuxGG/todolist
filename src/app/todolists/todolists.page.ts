@@ -14,6 +14,8 @@ import { Router } from '@angular/router';
 export class TodolistsPage implements OnInit {
 
   private todolist$: Observable<Array<Todolist>>;
+  private todolistread$: Observable<Array<Todolist>>;
+  private todolistreadwrite$: Observable<Array<Todolist>>;
   private user: firebase.User;
 
   constructor(private authService: AuthenticationService, private todolistsService: TodolistsService, private router: Router) {
@@ -31,14 +33,16 @@ export class TodolistsPage implements OnInit {
           this.todolistsService.initialize(this.user.uid);
         }
         this.todolist$ = this.todolistsService.get();
+        this.todolistread$ = this.todolistsService.getRead();
+        this.todolistreadwrite$ = this.todolistsService.getReadWrite();
       }
     );
   }
 
   moveToTodolist(todolist: Todolist) {
-    this.router.navigate(['/todolist'], { queryParams: { id: todolist.id } });
+    this.router.navigate(['/todolist'], { queryParams: { listUid: todolist.id } });
   }
-  
+
   delete(todolist: Todolist) {
     this.todolistsService.delete(todolist);
   }

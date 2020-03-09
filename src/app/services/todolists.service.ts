@@ -1,7 +1,7 @@
 import { AuthenticationService } from './authentication.service';
 import { Injectable } from '@angular/core';
 import { Todo } from '../model/todo';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentData, DocumentReference } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Todolist } from '../model/todolist';
@@ -60,12 +60,28 @@ export class TodolistsService {
     return this.todolists;
   }
 
-  add(todolist: Todolist) {
+  getRead(): Observable<Array<Todolist>> {
+    return this.todolistsRead;
+  }
+
+  getReadWrite(): Observable<Array<Todolist>> {
+    return this.todolistsReadWrite;
+  }
+
+  add(todolist: Todolist): Promise<DocumentReference> {
     return this.todolistsCollection.add(todolist);
   }
 
-  delete(todolist: Todolist){
+  delete(todolist: Todolist): Promise<void> {
     return this.todolistsCollection.doc(todolist.id).delete();
   }
 
+  get_uid(listUid: string): DocumentData {
+    return this.todolistsCollection.doc(listUid).get();
+  }
+
+  update_uid(todolist: Todolist): Promise<void> {
+    console.log(todolist);
+    return this.todolistsCollection.doc(todolist.id).set(todolist);
+  }
 }

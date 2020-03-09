@@ -115,9 +115,7 @@ export class AuthenticationService {
     });
   }
 
-  /*getAllUsers(): Promise<any> {
-    //return this.http.get('https://us-central1-todolist-8b030.cloudfunctions.net/api').toPromise();
-    return this.http.get('https://www.google.com/').toPromise();
-    //return functions().httpsCallable('getAllUsers')();
-  }*/
+  getAllUsers(): Observable<JSON> {
+    return this.http.get<JSON>('https://us-central1-todolist-8b030.cloudfunctions.net/api');
+  }
 }

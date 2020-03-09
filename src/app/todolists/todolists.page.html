@@ -11,7 +11,7 @@
 
 
 <ion-content fullscreen>
-
+    <p> YOUR TODOLIST</p>
     <ion-list>
         <ion-item-sliding *ngFor="let todolist of todolist$ | async">
             <ion-item>
@@ -22,7 +22,26 @@
             </ion-item>
         </ion-item-sliding>
     </ion-list>
-
+    <p> TODOLIST SHARED WITH YOU IN READ MODE </p>
+    <ion-list>
+        <ion-item-sliding *ngFor="let todolist of todolistread$ | async">
+            <ion-item>
+                <ion-label (click)="moveToTodolist(todolist)">
+                    <h2>{{ todolist.title }}</h2>
+                </ion-label>
+            </ion-item>
+        </ion-item-sliding>
+    </ion-list>
+    <p> TODOLIST SHARED WITH YOU IN READ/WRITE MODE </p>
+    <ion-list>
+        <ion-item-sliding *ngFor="let todolist of todolistreadwrite$ | async">
+            <ion-item>
+                <ion-label (click)="moveToTodolist(todolist)">
+                    <h2>{{ todolist.title }}</h2>
+                </ion-label>
+            </ion-item>
+        </ion-item-sliding>
+    </ion-list>
     <section>
         <ion-button expand="block" [routerDirection]="'root'" [routerLink]="'/addtodolist'">Add a New Todolist</ion-button>
     </section>

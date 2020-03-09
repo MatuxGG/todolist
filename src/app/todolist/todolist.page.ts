@@ -23,7 +23,7 @@ export class TodolistPage implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.listUid = params.id;
+      this.listUid = params.listUid;
       console.log(this.listUid);
       this.todoService.initialize(this.listUid);
     });
@@ -31,7 +31,7 @@ export class TodolistPage implements OnInit {
   }
 
   edit(todo: Todo) {
-    this.router.navigate(['/todo'], { queryParams: { id: todo.id } });
+    this.router.navigate(['/todo'], { queryParams: { todouid: todo.id } });
   }
 
   delete(todo: Todo) {
