@@ -14,10 +14,12 @@ export class TodolistsharePage implements OnInit {
 
   private listUid: string;
   private allUsers$: Observable<JSON>;
+  private readwrite: boolean;
 
   constructor(private authService: AuthenticationService,
               private todoListsService: TodolistsService,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute,
+              private router: Router) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -34,7 +36,25 @@ export class TodolistsharePage implements OnInit {
     );
   }
 
-  shareWithUser(userUid: string): any {
+  getUsers(event): any {
+  }
+
+  readWriteChange(event): any {
+    this.readwrite = event.checked;
+  }
+
+  shareWithUser(userUid: string) {
+    console.log(this.readwrite);
+    if (this.readwrite === true) {
+      console.log('Sharing in read write mode');
+      this.shareWithUserReadWrite(userUid);
+    } else {
+      console.log('Sharing in read mode');
+      this.shareWithUserRead(userUid);
+    }
+  }
+
+  shareWithUserRead(userUid: string): any {
     this.todoListsService.get_uid(this.listUid).subscribe(
       todoListDocumentSnapshot => {
         const todoList: Todolist = todoListDocumentSnapshot.data();
@@ -42,8 +62,28 @@ export class TodolistsharePage implements OnInit {
         if (todoList.accessReading === undefined) {
           todoList.accessReading = [];
         }
-        todoList.accessReading.push(userUid);
-        this.todoListsService.update_uid(todoList);
+        if (!todoList.accessReading.includes(userUid)) {
+          todoList.accessReading.push(userUid);
+          this.todoListsService.update_uid(todoList);
+        }
+        this.router.navigate(['/todolist'], { queryParams: { listUid: todoList.id } });
+      }
+    );
+  }
+
+  shareWithUserReadWrite(userUid: string): any {
+    this.todoListsService.get_uid(this.listUid).subscribe(
+      todoListDocumentSnapshot => {
+        const todoList: Todolist = todoListDocumentSnapshot.data();
+        todoList.id = todoListDocumentSnapshot.id;
+        if (todoList.accessWriting === undefined) {
+          todoList.accessWriting = [];
+        }
+        if (!todoList.accessWriting.includes(userUid)) {
+          todoList.accessWriting.push(userUid);
+          this.todoListsService.update_uid(todoList);
+        }
+        this.router.navigate(['/todolist'], { queryParams: { listUid: todoList.id } });
       }
     );
   }
