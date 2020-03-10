@@ -1,19 +1,19 @@
 <ion-header>
   <ion-toolbar>
       <ion-buttons slot="start">
-          <ion-back-button defaultHref="profile"></ion-back-button>
+          <ion-back-button defaultHref="todolist"></ion-back-button>
       </ion-buttons>
       <ion-title>Share your List of Todos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-searchbar (ionInput)="getUsers($event)"></ion-searchbar>
+<ion-item>
+  <ion-label> Read & Write</ion-label>
+  <ion-toggle [(ngModel)]="readwrite"></ion-toggle>
+</ion-item>
 <ion-list>
-  <ion-item>
-    <ion-label> Read & Write</ion-label>
-    <ion-toggle [(ngModel)]="readwrite"></ion-toggle>
-  </ion-item>
-  <ion-item *ngFor="let user of this.allUsers$ | async | keyvalue" (click)="shareWithUser(user.value)">
-    {{ user.key }}
+  <ion-item *ngFor="let user of this.getAllUsersFiltered() | async" (click)="shareWithUser(user.uid)">
+    {{ user.email }}
   </ion-item>
 </ion-list>

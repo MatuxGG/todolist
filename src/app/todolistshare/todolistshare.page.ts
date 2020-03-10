@@ -1,9 +1,12 @@
+import { UserData } from './../model/userdata';
 import { Todolist } from './../model/todolist';
 import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { TodolistsService } from '../services/todolists.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { UserData } from '../model/userdata';
 
 @Component({
   selector: 'app-todolistshare',
@@ -13,7 +16,8 @@ import { Observable } from 'rxjs';
 export class TodolistsharePage implements OnInit {
 
   private listUid: string;
-  private allUsers$: Observable<JSON>;
+  private allUsers: Observable<UserData[]>;
+  private allUsersFiltered: Observable<UserData[]>;
   private readwrite: boolean;
 
   constructor(private authService: AuthenticationService,
@@ -26,7 +30,11 @@ export class TodolistsharePage implements OnInit {
       this.listUid = params.listUid;
       console.log(this.listUid);
     });
-    this.allUsers$ = this.authService.getAllUsers();
+    this.allUsers = this.authService.getAllUsers();
+    this.allUsersFiltered = this.allUsers;
+    /*subscribe(
+      res => { this.allUsers = res; this.allUsersFiltered = res; console.log(this.allUsers); }
+    );*/
     this.authService.getUser().subscribe(
       user => {
         if (user !== undefined) {
@@ -36,7 +44,16 @@ export class TodolistsharePage implements OnInit {
     );
   }
 
-  getUsers(event): any {
+  getAllUsersFiltered(): Observable<UserData[]> {
+    return this.allUsersFiltered;
+  }
+
+  getUsers(event): void {
+    const query = event.target.value.toLowerCase();
+    console.log(query);
+    this.allUsersFiltered = this.allUsers.pipe(
+        map(user => user.filter(userToFilter => userToFilter.email.toLowerCase().includes(query)))
+    );
   }
 
   readWriteChange(event): any {

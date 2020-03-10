@@ -1,11 +1,12 @@
 import { Observable } from 'rxjs';
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { functions, auth } from 'firebase';
+import { auth } from 'firebase';
 import { User } from '../model/user';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { HttpClient } from '@angular/common/http';
+import { UserData } from '../model/userdata';
 
 @Injectable({
   providedIn: 'root'
@@ -115,7 +116,7 @@ export class AuthenticationService {
     });
   }
 
-  getAllUsers(): Observable<JSON> {
-    return this.http.get<JSON>('https://us-central1-todolist-8b030.cloudfunctions.net/api');
+  getAllUsers(): Observable<UserData[]> {
+    return this.http.get<UserData[]>('https://us-central1-todolist-8b030.cloudfunctions.net/api');
   }
 }
