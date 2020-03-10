@@ -10,6 +10,12 @@
         </ion-toolbar>
     </ion-header>
 
+
+    <ion-item>
+        <ion-thumbnail slot="start">
+            <ion-img [src]="this.getUser().photoURL"></ion-img>
+        </ion-thumbnail>
+    </ion-item>
     <ion-item>
         <ion-label>ID utilisateur : {{ this.getUser().uid }}</ion-label>
     </ion-item>
@@ -19,9 +25,7 @@
     <ion-item>
         <ion-label>Email verified ? {{ this.getUser().emailVerified }}</ion-label>
     </ion-item>
-    <ion-item>
-        <ion-label>Photo url : {{ this.getUser().photoURL }}</ion-label>
-    </ion-item>
+
     <ion-item>
         <ion-button type="submit" (click)="this.todolists()" expand="block">
             My Todo Lists
