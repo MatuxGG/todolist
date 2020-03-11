@@ -1,8 +1,8 @@
+import { map } from 'rxjs/operators';
 import { AuthenticationService } from './../services/authentication.service';
 import { TodolistService } from './../services/todolist.service';
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../model/todo';
-import { TodolistsService } from '../services/todolists.service';
 import { Observable, of } from 'rxjs';
 import { TodosService } from '../services/todos.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,7 +18,7 @@ export class TodolistPage implements OnInit {
   private todos$: Observable<Array<Todo>>;
   private todolist$: Observable<Todolist>;
   private listUid: string;
-  private canWrite: Observable<boolean>;
+  private canWrite: Observable<any>;
 
   constructor(private authService: AuthenticationService,
               private todoService: TodosService,
@@ -73,9 +73,10 @@ export class TodolistPage implements OnInit {
   }
 
   canWriteFunc(todolist: Todolist): void {
-    this.authService.getUser().subscribe(user => {
-      this.canWrite = of(todolist.owner === user.uid || todolist.accessWriting.includes(user.uid));
+    this.authService.getUser().subscribe((user: firebase.User) => {
+      const cond = todolist.owner === user.uid || (todolist.accessWriting !== undefined && todolist.accessWriting.includes(user.uid))
+      console.log(cond);
+      this.canWrite = of(cond);
     });
   }
-  
 }

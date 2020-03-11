@@ -13,7 +13,6 @@
     </ion-toolbar>
 </ion-header>
 
-
 <ion-content fullscreen>
     <ion-list>
         <ion-item-sliding *ngFor="let todo of todos$ | async">
@@ -22,7 +21,6 @@
                     <h2>{{ todo.title }}</h2>
                 </ion-label>
             </ion-item>
-
             <ion-item-options side="end">
                 <ion-item-option color="danger" (click)="delete(todo)">
                     <ion-icon slot="top" name="trash"></ion-icon>
@@ -30,11 +28,13 @@
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>
-    <form (ngSubmit)="this.editTodolistName(todolist)" #loginForm="ngForm" *ngIf="todolist$ | async as todolist">;
-        <ion-item hidden="this.canWrite | async">
-            <ion-input type="text" [(ngModel)]="todolist.title" name="title" required></ion-input>
-            <ion-button type="submit" expand="block">Edit list name</ion-button>
-        </ion-item>
+    <form (ngSubmit)="this.editTodolistName(todolist)" #loginForm="ngForm" *ngIf="todolist$ | async as todolist">
+        <div *ngIf="(this.canWrite | async)">
+            <ion-item>
+                <ion-input type="text" [(ngModel)]="todolist.title" name="title" required></ion-input>
+                <ion-button type="submit" expand="block">Edit list name</ion-button>
+            </ion-item>
+        </div>
     </form>
     <ion-item>
         <ion-button expand="block" (click)="addNewTodo()">Add a New Todo</ion-button>
