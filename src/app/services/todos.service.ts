@@ -45,4 +45,5 @@ export class TodosService {
     }
     return this.todosCollection.doc(todo.id).delete();
   }
+
 }

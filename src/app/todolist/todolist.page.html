@@ -3,36 +3,46 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref="todolists"></ion-back-button>
         </ion-buttons>
-        <ion-title>
+        <ion-title *ngIf="(this.canWrite | async); else elseBlock">
             TodoList {{ (todolist$ | async)?.title }}
         </ion-title>
+        <ng-template #elseBlock>
+            <ion-title>TodoList {{ (todolist$ | async)?.title }} [Read Only]
+            </ion-title>
+        </ng-template>
     </ion-toolbar>
 </ion-header>
 
 
 <ion-content fullscreen>
-  <ion-list>
-    <ion-item-sliding *ngFor="let todo of todos$ | async">
-      <ion-item (click)=edit(todo)>
-        <ion-label>
-          <h2>{{ todo.title }}</h2>
-        </ion-label>
-      </ion-item>
+    <ion-list>
+        <ion-item-sliding *ngFor="let todo of todos$ | async">
+            <ion-item (click)=edit(todo)>
+                <ion-label>
+                    <h2>{{ todo.title }}</h2>
+                </ion-label>
+            </ion-item>
 
-      <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="delete(todo)">
-          <ion-icon slot="top" name="trash"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list>
-  <ion-item>
-    <ion-button expand="block" (click)="addNewTodo()">Add a New Todo</ion-button>
-  </ion-item>
-  <ion-item>
-    <ion-button expand="block" (click)="backToAllList()">Back to all lists</ion-button>
-  </ion-item>
-  <ion-item>
-    <ion-button expand="block" (click)="shareToDoList()">Share</ion-button>
-  </ion-item>
+            <ion-item-options side="end">
+                <ion-item-option color="danger" (click)="delete(todo)">
+                    <ion-icon slot="top" name="trash"></ion-icon>
+                </ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+    <form (ngSubmit)="this.editTodolistName(todolist)" #loginForm="ngForm" *ngIf="todolist$ | async as todolist">;
+        <ion-item hidden="this.canWrite | async">
+            <ion-input type="text" [(ngModel)]="todolist.title" name="title" required></ion-input>
+            <ion-button type="submit" expand="block">Edit list name</ion-button>
+        </ion-item>
+    </form>
+    <ion-item>
+        <ion-button expand="block" (click)="addNewTodo()">Add a New Todo</ion-button>
+    </ion-item>
+    <ion-item>
+        <ion-button expand="block" (click)="backToAllList()">Back to all lists</ion-button>
+    </ion-item>
+    <ion-item>
+        <ion-button expand="block" (click)="shareToDoList()">Share</ion-button>
+    </ion-item>
 </ion-content>

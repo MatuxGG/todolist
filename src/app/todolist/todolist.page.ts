@@ -1,8 +1,9 @@
+import { AuthenticationService } from './../services/authentication.service';
 import { TodolistService } from './../services/todolist.service';
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../model/todo';
 import { TodolistsService } from '../services/todolists.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { TodosService } from '../services/todos.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Todolist } from '../model/todolist';
@@ -17,8 +18,10 @@ export class TodolistPage implements OnInit {
   private todos$: Observable<Array<Todo>>;
   private todolist$: Observable<Todolist>;
   private listUid: string;
+  private canWrite: Observable<boolean>;
 
-  constructor(private todoService: TodosService,
+  constructor(private authService: AuthenticationService,
+              private todoService: TodosService,
               private todolistService: TodolistService,
               private route: ActivatedRoute,
               private router: Router) {
@@ -38,6 +41,7 @@ export class TodolistPage implements OnInit {
     });
     this.todolist$ = this.todolistService.getTodolist();
     this.todolist$.subscribe( todolist => {
+      this.canWriteFunc(todolist);
       console.log(todolist);
     });
   }
@@ -61,4 +65,17 @@ export class TodolistPage implements OnInit {
   shareToDoList() {
     this.router.navigate(['/todolistshare'], { queryParams: { listUid: this.listUid } });
   }
+
+  editTodolistName(todolist) {
+    this.todolistService.updateTodolist(todolist).then( res => {
+      this.router.navigate(['/todolist'], { queryParams: { listUid: this.listUid } });
+    });
+  }
+
+  canWriteFunc(todolist: Todolist): void {
+    this.authService.getUser().subscribe(user => {
+      this.canWrite = of(todolist.owner === user.uid || todolist.accessWriting.includes(user.uid));
+    });
+  }
+  
 }

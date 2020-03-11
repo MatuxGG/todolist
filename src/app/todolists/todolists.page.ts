@@ -54,4 +54,6 @@ export class TodolistsPage implements OnInit {
   deleteSharedReadWrite(todolist: Todolist): Promise<void> | void {
     return this.todolistsService.deleteSharedReadWrite(todolist);
   }
+
 }
+

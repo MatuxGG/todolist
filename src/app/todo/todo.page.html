@@ -3,7 +3,10 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref="todolists"></ion-back-button>
         </ion-buttons>
-        <ion-title>Todo modification</ion-title>
+        <ion-title *ngIf="this.todoService.canWrite(); else elseBlock">Todo modification</ion-title>
+        <ng-template #elseBlock>
+            <ion-title>Todo modification [Read Only]</ion-title>
+        </ng-template>
     </ion-toolbar>
 </ion-header>
 
@@ -12,14 +15,14 @@
         <ion-list>
             <ion-item lines="full">
                 <ion-label position="floating">Title</ion-label>
-                <ion-input type="text" [(ngModel)]="todo.title" name="title" required></ion-input>
+                <ion-input disabled="this.todoService.canWrite()" type="text" [(ngModel)]="todo.title" name="title" required></ion-input>
             </ion-item>
             <ion-item lines="full">
                 <ion-label>Is Done</ion-label>
-                <ion-toggle [(ngModel)]="todo.isDone" name="isDone"></ion-toggle>
+                <ion-toggle disabled="this.todoService.canWrite()" [(ngModel)]="todo.isDone" name="isDone"></ion-toggle>
             </ion-item>
             <ion-item lines="full">
-                <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!todoForm.valid">Update Todo</ion-button>
+                <ion-button disabled="this.todoService.canWrite()" expand="block" type="submit" class="ion-no-margin" [disabled]="!todoForm.valid">Update Todo</ion-button>
             </ion-item>
         </ion-list>
     </form>

@@ -11,6 +11,7 @@ export class TodoService {
 
   private todoDocument: AngularFirestoreDocument<Todo>;
   private todo: Observable<Todo>;
+  private write: boolean;
 
   constructor(private db: AngularFirestore) {
   }
@@ -24,6 +25,7 @@ export class TodoService {
           return { id, ...data };
       })
     );
+    this.write = false;
   }
 
   getTodo(): Observable<Todo> {
@@ -33,5 +35,9 @@ export class TodoService {
   updateTodo(todo: Todo): Promise<void> {
     console.log('Updating todo : ' + todo);
     return this.todoDocument.set(todo);
+  }
+
+  canWrite(): boolean {
+    return this.write;
   }
 }
