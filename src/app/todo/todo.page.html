@@ -19,6 +19,12 @@
                 <ion-toggle [(ngModel)]="todo.isDone" name="isDone"></ion-toggle>
             </ion-item>
             <ion-item lines="full">
+                <ion-img [src]="todo.picture"></ion-img>
+            </ion-item>
+            <ion-item lines="full">
+                <ion-button expand="block" class="ion-no-margin" (click)="this.addPicture()">Add a picture</ion-button>
+            </ion-item>
+            <ion-item lines="full">
                 <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!todoForm.valid">Update Todo</ion-button>
             </ion-item>
         </ion-list>

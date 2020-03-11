@@ -3,18 +3,25 @@ import { Observable } from 'rxjs';
 import { Todo } from '../model/todo';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TodoService } from '../services/todo.service';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.page.html',
   styleUrls: ['./todo.page.scss'],
+  providers: [[Camera]]
 })
 export class TodoPage implements OnInit {
 
   private todo$: Observable<Todo>;
   private todoUid: string;
 
-  constructor(private todoService: TodoService, private route: ActivatedRoute, private router: Router) {
+  constructor(private todoService: TodoService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private camera: Camera,
+              private toastController: ToastController) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
    }
 
@@ -37,4 +44,35 @@ export class TodoPage implements OnInit {
     );
   }
 
+  addPicture(todo: Todo): Promise<void> {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+    return this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      const base64Image = 'data:image/jpeg;base64,' + imageData;
+      todo.picture = base64Image;
+      console.log('Picture');
+      console.log(base64Image);
+      this.toastController.create({
+        message: base64Image,
+        duration: 2000
+      }).then( (toasting: HTMLIonToastElement) => {
+        toasting.present();
+      });
+      this.todoService.updateTodo(todo).then();
+    }, (err) => {
+      // Handle error
+      this.toastController.create({
+        message: err,
+        duration: 2000
+      }).then( (toasting: HTMLIonToastElement) => {
+        toasting.present();
+      });
+    });
+  }
 }
