@@ -76,6 +76,26 @@ export class TodolistsService {
     return this.todolistsCollection.doc(todolist.id).delete();
   }
 
+  deleteSharedRead(todolist: Todolist): Promise<void> | void {
+    this.authService.getUser().subscribe( user => {
+      const index = todolist.accessReading.indexOf(user.uid);
+      if (todolist.accessReading.indexOf(user.uid) >= 0) {
+        todolist.accessReading.splice(index, 1);
+        return this.todolistsCollectionRead.doc(todolist.id).set(todolist);
+      }
+    });
+  }
+
+  deleteSharedReadWrite(todolist: Todolist): Promise<void> | void {
+    this.authService.getUser().subscribe( user => {
+      const index = todolist.accessWriting.indexOf(user.uid);
+      if (todolist.accessWriting.indexOf(user.uid) >= 0) {
+        todolist.accessWriting.splice(index, 1);
+        return this.todolistsCollectionReadWrite.doc(todolist.id).set(todolist);
+      }
+    });
+  }
+
   get_uid(listUid: string): DocumentData {
     return this.todolistsCollection.doc(listUid).get();
   }

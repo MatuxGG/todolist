@@ -18,7 +18,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent,

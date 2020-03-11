@@ -6,7 +6,6 @@ import { TodolistsService } from '../services/todolists.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { UserData } from '../model/userdata';
 
 @Component({
   selector: 'app-todolistshare',
@@ -48,7 +47,7 @@ export class TodolistsharePage implements OnInit {
     return this.allUsersFiltered;
   }
 
-  getUsers(event): void {
+  getUsers(event: any): void {
     const query = event.target.value.toLowerCase();
     console.log(query);
     this.allUsersFiltered = this.allUsers.pipe(
@@ -56,7 +55,7 @@ export class TodolistsharePage implements OnInit {
     );
   }
 
-  readWriteChange(event): any {
+  readWriteChange(event: any): any {
     this.readwrite = event.checked;
   }
 
@@ -73,13 +72,13 @@ export class TodolistsharePage implements OnInit {
 
   shareWithUserRead(userUid: string): any {
     this.todoListsService.get_uid(this.listUid).subscribe(
-      todoListDocumentSnapshot => {
+      (todoListDocumentSnapshot: any) => {
         const todoList: Todolist = todoListDocumentSnapshot.data();
         todoList.id = todoListDocumentSnapshot.id;
         if (todoList.accessReading === undefined) {
           todoList.accessReading = [];
         }
-        if (!todoList.accessReading.includes(userUid)) {
+        if (!todoList.accessReading.includes(userUid) && todoList.owner !== userUid) {
           todoList.accessReading.push(userUid);
           this.todoListsService.update_uid(todoList);
         }
@@ -90,13 +89,13 @@ export class TodolistsharePage implements OnInit {
 
   shareWithUserReadWrite(userUid: string): any {
     this.todoListsService.get_uid(this.listUid).subscribe(
-      todoListDocumentSnapshot => {
+      (todoListDocumentSnapshot: any) => {
         const todoList: Todolist = todoListDocumentSnapshot.data();
         todoList.id = todoListDocumentSnapshot.id;
         if (todoList.accessWriting === undefined) {
           todoList.accessWriting = [];
         }
-        if (!todoList.accessWriting.includes(userUid)) {
+        if (!todoList.accessWriting.includes(userUid) && todoList.owner !== userUid && todoList.accessReading.includes(userUid)) {
           todoList.accessWriting.push(userUid);
           this.todoListsService.update_uid(todoList);
         }

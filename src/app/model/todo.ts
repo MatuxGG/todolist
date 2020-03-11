@@ -3,4 +3,5 @@ export interface Todo {
   title?: string;
   isDone?: boolean;
   list?: string; // ID de la todolist associée
+  picture?: string;
 }

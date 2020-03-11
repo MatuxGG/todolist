@@ -43,7 +43,15 @@ export class TodolistsPage implements OnInit {
     this.router.navigate(['/todolist'], { queryParams: { listUid: todolist.id } });
   }
 
-  delete(todolist: Todolist) {
-    this.todolistsService.delete(todolist);
+  delete(todolist: Todolist): Promise<void> {
+    return this.todolistsService.delete(todolist);
+  }
+
+  deleteSharedRead(todolist: Todolist): Promise<void> | void {
+    return this.todolistsService.deleteSharedRead(todolist);
+  }
+
+  deleteSharedReadWrite(todolist: Todolist): Promise<void> | void {
+    return this.todolistsService.deleteSharedReadWrite(todolist);
   }
 }

@@ -4,7 +4,7 @@
             <ion-back-button defaultHref="todolists"></ion-back-button>
         </ion-buttons>
         <ion-title>
-            Todos
+            TodoList {{ (todolist$ | async)?.title }}
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -13,7 +13,7 @@
 <ion-content fullscreen>
   <ion-list>
     <ion-item-sliding *ngFor="let todo of todos$ | async">
-      <ion-item>
+      <ion-item (click)=edit(todo)>
         <ion-label>
           <h2>{{ todo.title }}</h2>
         </ion-label>

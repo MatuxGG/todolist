@@ -20,13 +20,21 @@ export class TodoPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.todoUid = params.uid;
-      console.log(this.todoUid);
+      this.todoUid = params.todoUid;
+      console.log('TodoUID : ' + this.todoUid);
       this.todoService.initialize(this.todoUid);
+      this.todo$ = this.todoService.getTodo();
+      this.todo$.subscribe(todo => {
+        console.log(todo);
+      });
     });
-    this.todo$ = this.todoService.get();
-    console.log('this.todo');
-    console.log(this.todo$);
+  }
+
+  updateTodo(todo: Todo): void {
+    this.todoService.updateTodo(todo).then( res => {
+        this.router.navigate(['/todolist'], { queryParams: { listUid: todo.list } });
+      }
+    );
   }
 
 }
