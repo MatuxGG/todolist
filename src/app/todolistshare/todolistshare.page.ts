@@ -95,7 +95,11 @@ export class TodolistsharePage implements OnInit {
         if (todoList.accessWriting === undefined) {
           todoList.accessWriting = [];
         }
-        if (!todoList.accessWriting.includes(userUid) && todoList.owner !== userUid && todoList.accessReading.includes(userUid)) {
+        if (!todoList.accessWriting.includes(userUid) && todoList.owner !== userUid) {
+          if (todoList.accessReading.includes(userUid) === true) {
+            const index = todoList.accessReading.indexOf(userUid);
+            todoList.accessReading.splice(index, 1);
+          }
           todoList.accessWriting.push(userUid);
           this.todoListsService.update_uid(todoList);
         }

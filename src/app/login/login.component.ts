@@ -3,6 +3,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { async } from '@angular/core/testing';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public authService: AuthenticationService,
-    private router: Router) { }
+    private router: Router,
+    private toastController: ToastController) { }
 
   ngOnInit() {
     this.authService.getUser().subscribe(
@@ -28,11 +30,22 @@ export class LoginComponent implements OnInit {
         if (this.authService.isEmailVerified) {
           this.router.navigate(['profile']);
         } else {
-          window.alert('Email is not verified');
+          this.toastController.create({
+            message: 'Email is not verified',
+            duration: 2000
+          }).then( (toasting: HTMLIonToastElement) => {
+            toasting.present();
+          });
           return false;
         }
       }).catch((error) => {
-        window.alert(error.message);
+        console.log(error.message);
+        this.toastController.create({
+          message: error.message,
+          duration: 2000
+        }).then( (toasting: HTMLIonToastElement) => {
+          toasting.present();
+        });
       });
   }
 
