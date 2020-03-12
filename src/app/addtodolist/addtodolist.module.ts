@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 import { addTodolistPageRoutingModule } from './addtodolist-routing.module';
-import { addTodolistPage } from './addTodolist.page';
+import { addTodolistPage } from './addtodolist.page';
 
 
 @NgModule({

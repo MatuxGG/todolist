@@ -6,9 +6,9 @@ import { TodolistsService } from '../services/todolists.service';
 import { Todolist } from '../model/todolist';
 
 @Component({
-  selector: 'app-addTodolist',
-  templateUrl: './addTodolist.page.html',
-  styleUrls: ['./addTodolist.page.scss'],
+  selector: 'app-addtodolist',
+  templateUrl: './addtodolist.page.html',
+  styleUrls: ['./addtodolist.page.scss'],
 })
 export class addTodolistPage implements OnInit {
 

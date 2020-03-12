@@ -13,10 +13,10 @@ import { Router } from '@angular/router';
 })
 export class TodolistsPage implements OnInit {
 
-  private todolist$: Observable<Array<Todolist>>;
-  private todolistread$: Observable<Array<Todolist>>;
-  private todolistreadwrite$: Observable<Array<Todolist>>;
-  private user: firebase.User;
+  public todolist$: Observable<Array<Todolist>>;
+  public todolistread$: Observable<Array<Todolist>>;
+  public todolistreadwrite$: Observable<Array<Todolist>>;
+  public user: firebase.User;
 
   constructor(private authService: AuthenticationService, private todolistsService: TodolistsService, private router: Router) {
   }

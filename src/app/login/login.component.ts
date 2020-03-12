@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     );
    }
 
-  login(email: { value: any; }, password: { value: any; }) {
+  login(email, password) {
     this.authService.signIn(email.value, password.value)
       .then((res) => {
         if (this.authService.isEmailVerified) {

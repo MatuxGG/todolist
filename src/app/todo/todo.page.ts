@@ -14,8 +14,8 @@ import { ToastController } from '@ionic/angular';
 })
 export class TodoPage implements OnInit {
 
-  private todo$: Observable<Todo>;
-  private todoUid: string;
+  public todo$: Observable<Todo>;
+  public todoUid: string;
 
   constructor(private todoService: TodoService,
               private route: ActivatedRoute,

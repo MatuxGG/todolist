@@ -14,10 +14,10 @@ import { filter, map } from 'rxjs/operators';
 })
 export class TodolistsharePage implements OnInit {
 
-  private listUid: string;
-  private allUsers: Observable<UserData[]>;
-  private allUsersFiltered: Observable<UserData[]>;
-  private readwrite: boolean;
+  public listUid: string;
+  public allUsers: Observable<UserData[]>;
+  public allUsersFiltered: Observable<UserData[]>;
+  public readwrite: boolean;
 
   constructor(private authService: AuthenticationService,
               private todoListsService: TodolistsService,

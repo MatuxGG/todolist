@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { addTodolistPage } from './addTodolist.page';
+import { addTodolistPage } from './addtodolist.page';
 
 
 describe('addTodolistPage', () => {

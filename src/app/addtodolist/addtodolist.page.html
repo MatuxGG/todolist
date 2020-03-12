@@ -16,7 +16,7 @@
                 </ion-label>
                 <ion-input required id="title" type="text" name="title" [(ngModel)]="title" #ctrlTitle="ngModel">
                 </ion-input>
-                <ion-text [hidden]="ctrlTitle.valid || ctrlTitle.pristine || name" color="danger">Title is required</ion-text>
+                <ion-text [hidden]="ctrlTitle.valid || ctrlTitle.pristine || title" color="danger">Title is required</ion-text>
             </ion-item>
         </ion-list>
         <div class="ion-padding">

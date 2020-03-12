@@ -10,8 +10,8 @@ import { TodosService } from '../services/todos.service';
 })
 export class AddtodoPage implements OnInit {
 
-  title: string;
-  listUid: string;
+  public title: string;
+  public listUid: string;
 
   constructor(private todosService: TodosService,
               private router: Router,

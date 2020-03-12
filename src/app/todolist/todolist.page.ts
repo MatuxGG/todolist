@@ -15,10 +15,10 @@ import { Todolist } from '../model/todolist';
 })
 export class TodolistPage implements OnInit {
 
-  private todos$: Observable<Array<Todo>>;
-  private todolist$: Observable<Todolist>;
-  private listUid: string;
-  private canWrite: Observable<any>;
+  public todos$: Observable<Array<Todo>>;
+  public todolist$: Observable<Todolist>;
+  public listUid: string;
+  public canWrite: Observable<any>;
 
   constructor(private authService: AuthenticationService,
               private todoService: TodosService,
