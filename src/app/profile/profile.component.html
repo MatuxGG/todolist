@@ -1,34 +1,39 @@
-<div *ngIf="this.getUser() != undefined">
+<ion-item *ngIf="this.user !== undefined && this.user !== null">
+
     <ion-header>
         <ion-toolbar>
             <ion-buttons slot="start">
                 <ion-back-button defaultHref="login"></ion-back-button>
             </ion-buttons>
             <ion-title>
-                Profile of {{ this.getUser().displayName }}
+                Profile of {{ this.user.displayName }}
             </ion-title>
         </ion-toolbar>
     </ion-header>
 
-
-    <ion-item>
+    <ion-item class="items">
         <ion-thumbnail slot="start">
-            <ion-img [src]="this.getUser().photoURL"></ion-img>
+            <ion-img [src]="this.user.photoURL"></ion-img>
         </ion-thumbnail>
     </ion-item>
-    <ion-item>
-        <ion-label>ID utilisateur : {{ this.getUser().uid }}</ion-label>
-    </ion-item>
-    <ion-item>
-        <ion-label>Email : {{ this.getUser().email }}</ion-label>
-    </ion-item>
-    <ion-item>
-        <ion-label>Email verified ? {{ this.getUser().emailVerified }}</ion-label>
+
+    <ion-item class="items">
+        <ion-label>ID utilisateur : {{ this.user.uid }}</ion-label>
     </ion-item>
 
-    <ion-item>
-        <ion-button type="submit" (click)="this.todolists()" expand="block">
-            My Todo Lists
-        </ion-button>
+    <ion-item class="items">
+        <ion-label>Email : {{ this.user.email }}</ion-label>
     </ion-item>
-</div>
+
+    <ion-item class="items">
+        <ion-label>Email verified ? {{ this.user.emailVerified }}</ion-label>
+    </ion-item>
+
+    <ion-item class="items">
+        <ion-button class="buttons" type="submit" (click)="this.todolists()" expand="block">My Todo Lists</ion-button>
+    </ion-item>
+
+    <ion-item class="items">
+        <ion-button class="buttons" expand="block" type="submit" (click)="this.logout()">Logout</ion-button>
+    </ion-item>
+</ion-item>

@@ -11,7 +11,7 @@
 
 
 <ion-content fullscreen>
-    <p> YOUR TODOLIST</p>
+    <h1 class="h1"> YOUR TODOLIST</h1>
     <ion-list>
         <ion-item-sliding *ngFor="let todolist of todolist$ | async">
             <ion-item>
@@ -22,7 +22,7 @@
             </ion-item>
         </ion-item-sliding>
     </ion-list>
-    <p> TODOLIST SHARED WITH YOU IN READ MODE </p>
+    <h1 class="h1"> TODOLIST SHARED (READ MODE) </h1>
     <ion-list>
         <ion-item-sliding *ngFor="let todolist of todolistread$ | async">
             <ion-item>
@@ -33,7 +33,7 @@
             </ion-item>
         </ion-item-sliding>
     </ion-list>
-    <p> TODOLIST SHARED WITH YOU IN READ/WRITE MODE </p>
+    <h1 class="h1"> TODOLIST SHARED (READ/WRITE MODE) </h1>
     <ion-list>
         <ion-item-sliding *ngFor="let todolist of todolistreadwrite$ | async">
             <ion-item>

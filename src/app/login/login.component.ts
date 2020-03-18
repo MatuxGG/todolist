@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { async } from '@angular/core/testing';
 import { ToastController } from '@ionic/angular';
 
 @Component({
@@ -16,7 +14,9 @@ export class LoginComponent implements OnInit {
   constructor(
     public authService: AuthenticationService,
     private router: Router,
-    private toastController: ToastController) { }
+    private toastController: ToastController) {
+      this.user = undefined;
+  }
 
   ngOnInit() {
     this.authService.getUser().subscribe(
@@ -59,21 +59,5 @@ export class LoginComponent implements OnInit {
 
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn;
-  }
-
-  logout(): Promise<void> {
-    return this.authService.signOut();
-  }
-
-  getUser(): firebase.User {
-    return this.user;
-  }
-
-  profile(): void {
-    if (this.authService.isEmailVerified) {
-      this.router.navigate(['profile']);
-    } else {
-      window.alert('Email is not verified');
-    }
   }
 }

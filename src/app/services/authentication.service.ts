@@ -7,6 +7,8 @@ import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firesto
 import { AngularFireAuth } from 'angularfire2/auth';
 import { HttpClient } from '@angular/common/http';
 import { UserData } from '../model/userdata';
+import { Platform } from '@ionic/angular';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,9 @@ export class AuthenticationService {
     public ngFireAuth: AngularFireAuth,
     public router: Router,
     public ngZone: NgZone,
-    private http: HttpClient
+    private http: HttpClient,
+    private platform: Platform,
+    private gPlus: GooglePlus
   ) {
     this.userData = this.ngFireAuth.authState;
     this.ngFireAuth.authState.subscribe(user => {
@@ -35,6 +39,10 @@ export class AuthenticationService {
 
   getUser(): Observable<firebase.User> {
     return this.userData;
+  }
+
+  getCurrentUser(): firebase.User {
+    return this.ngFireAuth.auth.currentUser;
   }
 
   // Login in with email/password
@@ -77,20 +85,33 @@ export class AuthenticationService {
 
   // Sign in with Gmail
   googleAuth(): Promise<void> {
-    return this.authLogin(new auth.GoogleAuthProvider());
-  }
-
-  // Auth providers
-  authLogin(provider): Promise<void> {
-    return this.ngFireAuth.auth.signInWithPopup(provider)
-    .then((result) => {
-      this.ngZone.run(() => {
-        this.router.navigate(['profile']);
+    if (this.platform.is('cordova') || this.platform.is('android')) {
+      return this.gPlus.login({
+        webClientId: '106122726493-hd48veadghih3da27b5s67404ijuuhp4.apps.googleusercontent.com',
+        offline: true,
+        scopes: 'profile email'
+      }).then((response) => {
+        const { accessToken, accessSecret } = response;
+        const credential = accessSecret ?
+        auth.GoogleAuthProvider.credential(accessToken, accessSecret) : auth.GoogleAuthProvider.credential(accessToken);
+        return this.ngFireAuth.auth.signInWithCredential(credential).then((result) => {
+          this.ngZone.run(() => {
+            this.router.navigate(['profile']);
+          });
+          this.setUserData(result.user);
+        });
       });
-      this.setUserData(result.user);
-    }).catch((error) => {
-      window.alert(error);
-    });
+    } else {
+      return this.ngFireAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
+      .then((result) => {
+        this.ngZone.run(() => {
+          this.router.navigate(['profile']);
+        });
+        this.setUserData(result.user);
+      }).catch((error) => {
+        window.alert(error);
+      });
+    }
   }
 
   // Store user in localStorage

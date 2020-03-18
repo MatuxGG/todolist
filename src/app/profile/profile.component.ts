@@ -13,7 +13,9 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     public authService: AuthenticationService,
-    private router: Router) { }
+    private router: Router) {
+      this.user = undefined;
+  }
 
   ngOnInit() {
     this.authService.getUser().subscribe(
@@ -21,11 +23,11 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  getUser(): firebase.User {
-    return this.user;
-  }
-
   todolists(): void {
     this.router.navigate(['todolists']);
+  }
+
+  logout(): Promise<void> {
+    return this.authService.signOut();
   }
 }

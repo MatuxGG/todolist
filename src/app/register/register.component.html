@@ -8,20 +8,23 @@
 </ion-header>
 
 <ion-content>
+
     <form (ngSubmit)="this.signUp(email, password)" #signUpForm="ngForm">
-        <ion-item lines="full">
+
+        <ion-item no-lines class="items">
             <ion-label position="floating">Email</ion-label>
             <ion-input type="text" #email required></ion-input>
         </ion-item>
 
-        <ion-item lines="full">
+        <ion-item no-lines class="items">
             <ion-label position="floating">Password</ion-label>
             <ion-input type="password" #password required></ion-input>
         </ion-item>
 
-        <div class="ion-padding">
-            <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!signUpForm.valid">
-                Register</ion-button>
-        </div>
+        <ion-item no-lines class="items">
+            <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!signUpForm.valid">Register</ion-button>
+        </ion-item>
+
     </form>
+
 </ion-content>

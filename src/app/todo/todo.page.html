@@ -13,6 +13,7 @@
             <ion-item lines="full">
                 <ion-label position="floating">Title</ion-label>
                 <ion-input type="text" [(ngModel)]="todo.title" name="title" required></ion-input>
+                <ion-button expand="block" class="ion-no-margin" (click)="this.speech(todo)">Speech</ion-button>
             </ion-item>
             <ion-item lines="full">
                 <ion-label>Is Done</ion-label>

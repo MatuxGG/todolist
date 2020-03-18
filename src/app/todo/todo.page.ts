@@ -1,3 +1,4 @@
+import { SpeechService } from './../services/speech.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Todo } from '../model/todo';
@@ -21,7 +22,8 @@ export class TodoPage implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private camera: Camera,
-              private toastController: ToastController) {
+              private toastController: ToastController,
+              private speechService: SpeechService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
    }
 
@@ -74,5 +76,16 @@ export class TodoPage implements OnInit {
         toasting.present();
       });
     });
+  }
+
+  speech(todo: Todo): void {
+    if (this.speechService.getHasPermission()) {
+      this.speechService.listenAndGetResult().then((message: string) => {
+        console.log(message);
+        todo.title = message;
+      });
+    } else {
+      this.speechService.checkAndRequestPermissions().then();
+    }
   }
 }

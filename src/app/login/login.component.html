@@ -7,47 +7,48 @@
 </ion-header>
 
 <ion-content fullscreen>
-    <div *ngIf="this.getUser() != undefined else this.showLogin">
-        <h1 i18n>Hello {{ this.getUser().displayName }}!</h1>
-        <ion-button expand="block" type="submit" class="ion-no-margin" (click)="this.logout()">
-            Logout</ion-button>
-        <ion-button expand="block" type="submit" class="ion-no-margin" (click)="this.profile()">
-            Profile</ion-button>
-    </div>
-    <ng-template #showLogin>
+
+    <div *ngIf="(this.user === undefined || this.user === null) else this.alreadyLogged">
+
         <form (ngSubmit)="this.login(email, password)" #loginForm="ngForm">
-            <ion-item lines="full">
+
+            <ion-item class="items">
                 <ion-label position="floating" i18n>Email</ion-label>
                 <ion-input type="text" #email required></ion-input>
             </ion-item>
-            <ion-item lines="full">
+
+            <ion-item class="items">
                 <ion-label position="floating" i18n>Password</ion-label>
                 <ion-input type="password" #password required></ion-input>
             </ion-item>
-            <ion-row>
-                <ion-col>
-                    <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!loginForm.valid" i18n>
-                        Login</ion-button>
-                </ion-col>
-            </ion-row>
+
+            <ion-item class="items">
+                <ion-button type="submit" class="ion-no-margin" [disabled]="!loginForm.valid" i18n>Login</ion-button>
+            </ion-item>
+
         </form>
-        <form>
-            <ion-row>
-                <ion-col>
-                    <ion-button type="submit" color="danger" (click)="this.googleAuth()" expand="block" i18n>
-                        Login with Google
-                    </ion-button>
-                </ion-col>
-            </ion-row>
-        </form>
-        <form>
-            <ion-row>
-                <ion-col>
-                    <ion-button type="submit" color="danger" (click)="this.register()" expand="block" i18n>
-                        Against GAFA ? Register !
-                    </ion-button>
-                </ion-col>
-            </ion-row>
-        </form>
+
+        <ion-item class="items">
+            <ion-button type="submit" color="danger" (click)="this.googleAuth()" i18n>Login with Google</ion-button>
+        </ion-item>
+
+        <ion-item class="items">
+            <ion-button type="submit" color="danger" (click)="this.register()" i18n>Against GAFA ? Register !</ion-button>
+        </ion-item>
+
+    </div>
+
+    <ng-template #alreadyLogged>
+
+        <h1 class="h1">{{ 'Hello' | translate }} {{ this.getUser().displayName }}!</h1>
+
+        <ion-item class="items">
+            <ion-button type="submit" class="ion-no-margin" (click)="this.logout()">{{ 'Logout' | translate }}</ion-button>
+        </ion-item>
+
+        <ion-item class="items">
+            <ion-button type="submit" class="ion-no-margin" (click)="this.profile()">{{ 'Profile' | translate }}</ion-button>
+        </ion-item>
+
     </ng-template>
 </ion-content>
