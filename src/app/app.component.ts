@@ -17,9 +17,9 @@ export class AppComponent {
     private statusBar: StatusBar,
     translate: TranslateService,
   ) {
-    this.initializeApp();
     translate.setDefaultLang('en');
     translate.use('fr');
+    this.initializeApp();
   }
 
   initializeApp() {

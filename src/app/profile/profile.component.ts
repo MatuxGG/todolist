@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import {TranslateService} from '@ngx-translate/core';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -13,7 +15,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     public authService: AuthenticationService,
-    private router: Router) { }
+    private router: Router,
+    private translate: TranslateService) { }
 
   ngOnInit() {
     this.authService.getUser().subscribe(
@@ -27,5 +30,9 @@ export class ProfileComponent implements OnInit {
 
   todolists(): void {
     this.router.navigate(['todolists']);
+  }
+
+  changeLang(lg): void {
+    this.translate.use(lg);
   }
 }

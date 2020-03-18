@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { addTodolistPageRoutingModule } from './addtodolist-routing.module';
 import { addTodolistPage } from './addtodolist.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -14,6 +15,6 @@ import { addTodolistPage } from './addtodolist.page';
     IonicModule,
     addTodolistPageRoutingModule
   ],
-  declarations: [addTodolistPage]
+  declarations: [addTodolistPage, TranslateModule]
 })
 export class addTodolistPageModule {}

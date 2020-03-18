@@ -4,10 +4,10 @@
             <ion-back-button defaultHref="todolists"></ion-back-button>
         </ion-buttons>
         <ion-title *ngIf="(this.canWrite | async); else elseBlock">
-            TodoList {{ (todolist$ | async)?.title }}
+            {{ 'Todolist' | translate }} {{ (todolist$ | async)?.title }}
         </ion-title>
         <ng-template #elseBlock>
-            <ion-title>TodoList {{ (todolist$ | async)?.title }} [Read Only]
+            <ion-title>{{ 'Update' | translate }} {{ 'Todo' | translate }} {{ (todolist$ | async)?.title }} [Read Only]
             </ion-title>
         </ng-template>
     </ion-toolbar>
@@ -32,17 +32,17 @@
         <div *ngIf="(this.canWrite | async)">
             <ion-item>
                 <ion-input type="text" [(ngModel)]="todolist.title" name="title" required></ion-input>
-                <ion-button type="submit" expand="block">Edit list name</ion-button>
+                <ion-button type="submit" expand="block">{{ 'Edit' | translate }} {{ 'Todolist' | translate }} {{ 'name' | translate }}</ion-button>
             </ion-item>
         </div>
     </form>
     <ion-item>
-        <ion-button expand="block" (click)="addNewTodo()">Add a New Todo</ion-button>
+        <ion-button expand="block" (click)="addNewTodo()">{{ 'Add' | translate }} {{ 'aTodo' | translate }}</ion-button>
     </ion-item>
     <ion-item>
-        <ion-button expand="block" (click)="backToAllList()">Back to all lists</ion-button>
+        <ion-button expand="block" (click)="backToAllList()">{{ 'BackToLists' | translate }}</ion-button>
     </ion-item>
     <ion-item>
-        <ion-button expand="block" (click)="shareToDoList()">Share</ion-button>
+        <ion-button expand="block" (click)="shareToDoList()">{{ 'Share' | translate }}</ion-button>
     </ion-item>
 </ion-content>

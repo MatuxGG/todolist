@@ -1,33 +1,33 @@
 <ion-header>
     <ion-toolbar>
         <ion-title>
-            {{ 'LOGIN' | translate }}
+            {{ 'Login' | translate }}
         </ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen>
     <div *ngIf="this.getUser() != undefined else this.showLogin">
-        <h1>Hello {{ this.getUser().displayName }}!</h1>
+        <h1>{{ 'Hello' | translate }} {{ this.getUser().displayName }}!</h1>
         <ion-button expand="block" type="submit" class="ion-no-margin" (click)="this.logout()">
-            Logout</ion-button>
+            {{ 'Logout' | translate }}</ion-button>
         <ion-button expand="block" type="submit" class="ion-no-margin" (click)="this.profile()">
-            Profile</ion-button>
+            {{ 'Profile' | translate }}</ion-button>
     </div>
     <ng-template #showLogin>
         <form (ngSubmit)="this.login(email, password)" #loginForm="ngForm">
             <ion-item lines="full">
-                <ion-label position="floating">Email</ion-label>
+                <ion-label position="floating">{{ 'Email' | translate }}</ion-label>
                 <ion-input type="text" #email required></ion-input>
             </ion-item>
             <ion-item lines="full">
-                <ion-label position="floating">Password</ion-label>
+                <ion-label position="floating">{{ 'Password' | translate }}</ion-label>
                 <ion-input type="password" #password required></ion-input>
             </ion-item>
             <ion-row>
                 <ion-col>
                     <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!loginForm.valid">
-                        {{ 'LOGIN' | translate }}</ion-button>
+                        {{ 'Login' | translate }}</ion-button>
                 </ion-col>
             </ion-row>
         </form>
@@ -35,7 +35,7 @@
             <ion-row>
                 <ion-col>
                     <ion-button type="submit" color="danger" (click)="this.googleAuth()" expand="block">
-                        Login with Google
+                        {{ 'Login' | translate }} {{ 'with' | translate }} Google
                     </ion-button>
                 </ion-col>
             </ion-row>
@@ -44,7 +44,7 @@
             <ion-row>
                 <ion-col>
                     <ion-button type="submit" color="danger" (click)="this.register()" expand="block">
-                        Against GAFA ? Register !
+                        {{ 'Against' | translate }} GAFA ? {{ 'Register' | translate }} !
                     </ion-button>
                 </ion-col>
             </ion-row>

@@ -3,7 +3,7 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref="todolists"></ion-back-button>
         </ion-buttons>
-        <ion-title>add Todolist</ion-title>
+        <ion-title>{{ 'Add' | translate }} {{ 'Todolist' | translate }} </ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -11,17 +11,17 @@
     <form (ngSubmit)="addList()" #addListForm="ngForm">
         <ion-list lines="full" class="ion-no-margin ion-no-padding">
             <ion-item>
-                <ion-label position="stacked">Title
+                <ion-label position="stacked">{{ 'Title' | translate }}
                     <ion-text color="danger">*</ion-text>
                 </ion-label>
                 <ion-input required id="title" type="text" name="title" [(ngModel)]="title" #ctrlTitle="ngModel">
                 </ion-input>
-                <ion-text [hidden]="ctrlTitle.valid || ctrlTitle.pristine || title" color="danger">Title is required</ion-text>
+                <ion-text [hidden]="ctrlTitle.valid || ctrlTitle.pristine || title" color="danger">{{ 'Title' | translate }} {{ 'is' | translate }} {{ 'required' | translate }} </ion-text>
             </ion-item>
         </ion-list>
         <div class="ion-padding">
             <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!addListForm.valid">
-                Add item</ion-button>
+                {{ 'Add' | translate }} {{ 'item' | translate }}</ion-button>
         </div>
     </form>
 </ion-content>

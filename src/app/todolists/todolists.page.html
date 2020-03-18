@@ -4,14 +4,14 @@
             <ion-back-button defaultHref="profile"></ion-back-button>
         </ion-buttons>
         <ion-title>
-            Todolists
+            {{ 'Todolists' | translate }}
         </ion-title>
     </ion-toolbar>
 </ion-header>
 
 
 <ion-content fullscreen>
-    <p> YOUR TODOLIST</p>
+    <p>{{ 'Yours' | translate }} {{ 'Todolists' | translate }}</p>
     <ion-list>
         <ion-item-sliding *ngFor="let todolist of todolist$ | async">
             <ion-item>
@@ -22,7 +22,7 @@
             </ion-item>
         </ion-item-sliding>
     </ion-list>
-    <p> TODOLIST SHARED WITH YOU IN READ MODE </p>
+    <p> {{ 'TodolistsRead' | translate }} </p>
     <ion-list>
         <ion-item-sliding *ngFor="let todolist of todolistread$ | async">
             <ion-item>
@@ -33,7 +33,7 @@
             </ion-item>
         </ion-item-sliding>
     </ion-list>
-    <p> TODOLIST SHARED WITH YOU IN READ/WRITE MODE </p>
+    <p> {{ 'TodolistsWrite' | translate }} </p>
     <ion-list>
         <ion-item-sliding *ngFor="let todolist of todolistreadwrite$ | async">
             <ion-item>
@@ -45,6 +45,6 @@
         </ion-item-sliding>
     </ion-list>
     <section>
-        <ion-button expand="block" [routerDirection]="'root'" [routerLink]="'/addtodolist'">Add a New Todolist</ion-button>
+        <ion-button expand="block" [routerDirection]="'root'" [routerLink]="'/addtodolist'">{{ 'Add' | translate }} {{ 'aTodolist' | translate }}</ion-button>
     </section>
 </ion-content>

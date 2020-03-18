@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { TodoPageRoutingModule } from './todo-routing.module';
 import { TodoPage } from './todo.page';
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { IonicModule } from '@ionic/angular';
     IonicModule,
     TodoPageRoutingModule,
   ],
-  declarations: [TodoPage]
+  declarations: [TodoPage, TranslateModule]
 })
 export class TodoPageModule {}

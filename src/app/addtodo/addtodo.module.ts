@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { AddtodoPageRoutingModule } from './addtodo-routing.module';
 
 import { AddtodoPage } from './addtodo.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { AddtodoPage } from './addtodo.page';
     IonicModule,
     AddtodoPageRoutingModule
   ],
-  declarations: [AddtodoPage]
+  declarations: [AddtodoPage, TranslateModule]
 })
 export class AddtodoPageModule {}
