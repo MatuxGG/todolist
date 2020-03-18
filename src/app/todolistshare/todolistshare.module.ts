@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { TodolistsharePageRoutingModule } from './todolistshare-routing.module';
 
 import { TodolistsharePage } from './todolistshare.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { TodolistsharePage } from './todolistshare.page';
     IonicModule,
     TodolistsharePageRoutingModule
   ],
-  declarations: [TodolistsharePage]
+  declarations: [TodolistsharePage, TranslateModule]
 })
 export class TodolistsharePageModule {}

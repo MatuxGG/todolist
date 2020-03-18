@@ -18,7 +18,15 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpModule } from '@angular/http';
+
+export function CreateTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [AppComponent,
@@ -36,6 +44,14 @@ import { HttpClientModule } from '@angular/common/http';
     AngularFirestoreModule,
     FormsModule,
     BrowserAnimationsModule,
+    HttpModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: CreateTranslateLoader,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     StatusBar,
@@ -47,4 +63,5 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
+

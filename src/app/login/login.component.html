@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title i18n>
-            Login
+        <ion-title>
+            {{ 'Login' | translate }}
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -13,41 +13,43 @@
         <form (ngSubmit)="this.login(email, password)" #loginForm="ngForm">
 
             <ion-item class="items">
-                <ion-label position="floating" i18n>Email</ion-label>
+                <ion-label position="floating">{{ 'Email' | translate }}</ion-label>
                 <ion-input type="text" #email required></ion-input>
             </ion-item>
 
             <ion-item class="items">
-                <ion-label position="floating" i18n>Password</ion-label>
+                <ion-label position="floating">{{ 'Password' | translate }}</ion-label>
                 <ion-input type="password" #password required></ion-input>
             </ion-item>
 
             <ion-item class="items">
-                <ion-button type="submit" class="ion-no-margin" [disabled]="!loginForm.valid" i18n>Login</ion-button>
+                <ion-button type="submit" class="buttons" [disabled]="!loginForm.valid">{{ 'Login' | translate }}</ion-button>
             </ion-item>
 
         </form>
 
         <ion-item class="items">
-            <ion-button type="submit" color="danger" (click)="this.googleAuth()" i18n>Login with Google</ion-button>
+            <ion-button type="submit" color="danger" class="buttons" (click)="this.googleAuth()">{{ 'Login' | translate }} {{ 'with' | translate }} Google</ion-button>
         </ion-item>
 
         <ion-item class="items">
-            <ion-button type="submit" color="danger" (click)="this.register()" i18n>Against GAFA ? Register !</ion-button>
+            <ion-button type="submit" color="danger" class="buttons" (click)="this.register()">{{ 'Against' | translate }} GAFA ? {{ 'Register' | translate }} !</ion-button>
         </ion-item>
 
     </div>
 
     <ng-template #alreadyLogged>
 
-        <h1 class="h1">{{ 'Hello' | translate }} {{ this.getUser().displayName }}!</h1>
-
         <ion-item class="items">
-            <ion-button type="submit" class="ion-no-margin" (click)="this.logout()">{{ 'Logout' | translate }}</ion-button>
+            <h1 class="h1">{{ 'Hello' | translate }} {{ this.user.displayName }}!</h1>
         </ion-item>
 
         <ion-item class="items">
-            <ion-button type="submit" class="ion-no-margin" (click)="this.profile()">{{ 'Profile' | translate }}</ion-button>
+            <ion-button type="submit" class="buttons" (click)="this.logout()">{{ 'Logout' | translate }}</ion-button>
+        </ion-item>
+
+        <ion-item class="items">
+            <ion-button type="submit" class="buttons" (click)="this.profile()">{{ 'Profile' | translate }}</ion-button>
         </ion-item>
 
     </ng-template>

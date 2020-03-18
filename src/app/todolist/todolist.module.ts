@@ -8,6 +8,7 @@ import { TodolistPageRoutingModule } from './todolist-routing.module';
 
 import { TodolistPage } from './todolist.page';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     IonicModule,
     TodolistPageRoutingModule,
+    TranslateModule
   ],
   declarations: [TodolistPage]
 })

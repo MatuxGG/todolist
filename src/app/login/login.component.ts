@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ToastController, BooleanValueAccessor } from '@ionic/angular';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -59,5 +60,9 @@ export class LoginComponent implements OnInit {
 
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn;
+  }
+
+  profile(): void {
+    this.router.navigate(['profile']);
   }
 }

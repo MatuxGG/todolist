@@ -4,47 +4,59 @@
             <ion-back-button defaultHref="profile"></ion-back-button>
         </ion-buttons>
         <ion-title>
-            Todolists
+            {{ 'Todolists' | translate }}
         </ion-title>
     </ion-toolbar>
 </ion-header>
 
 
 <ion-content fullscreen>
-    <h1 class="h1"> YOUR TODOLIST</h1>
+
     <ion-list>
+
+        <ion-item class="items">
+            <h1 class="h1">{{ 'Yours' | translate }} {{ 'Todolists' | translate }}</h1>
+        </ion-item>
+
         <ion-item-sliding *ngFor="let todolist of todolist$ | async">
-            <ion-item>
-                <ion-label (click)="moveToTodolist(todolist)">
-                    <h2>{{ todolist.title }}</h2>
-                </ion-label>
+
+            <ion-item class="items">
+                <ion-label (click)="moveToTodolist(todolist)">{{ todolist.title }}</ion-label>
                 <ion-icon name="trash" (click)="delete(todolist)"></ion-icon>
             </ion-item>
+
         </ion-item-sliding>
-    </ion-list>
-    <h1 class="h1"> TODOLIST SHARED (READ MODE) </h1>
-    <ion-list>
+
+        <ion-item class="items">
+            <h1 class="h1">{{ 'TodolistsRead' | translate }}</h1>
+        </ion-item>
+
         <ion-item-sliding *ngFor="let todolist of todolistread$ | async">
-            <ion-item>
-                <ion-label (click)="moveToTodolist(todolist)">
-                    <h2>{{ todolist.title }}</h2>
-                </ion-label>
+
+            <ion-item class="items">
+                <ion-label (click)="moveToTodolist(todolist)">{{ todolist.title }}</ion-label>
                 <ion-icon name="trash" (click)="deleteSharedRead(todolist)"></ion-icon>
             </ion-item>
+
         </ion-item-sliding>
-    </ion-list>
-    <h1 class="h1"> TODOLIST SHARED (READ/WRITE MODE) </h1>
-    <ion-list>
+
+        <ion-item class="items">
+            <h1 class="h1">{{ 'TodolistsWrite' | translate }}</h1>
+        </ion-item>
+
         <ion-item-sliding *ngFor="let todolist of todolistreadwrite$ | async">
-            <ion-item>
-                <ion-label (click)="moveToTodolist(todolist)">
-                    <h2>{{ todolist.title }}</h2>
-                </ion-label>
+
+            <ion-item class="items">
+                <ion-label (click)="moveToTodolist(todolist)">{{ todolist.title }}</ion-label>
                 <ion-icon name="trash" (click)="deleteSharedReadWrite(todolist)"></ion-icon>
             </ion-item>
+
         </ion-item-sliding>
+
+        <ion-item class="items">
+            <ion-button class="buttons" [routerDirection]="'root'" [routerLink]="'/addtodolist'">{{ 'Add' | translate }} {{ 'aTodolist' | translate }}</ion-button>
+        </ion-item>
+
     </ion-list>
-    <section>
-        <ion-button expand="block" [routerDirection]="'root'" [routerLink]="'/addtodolist'">Add a New Todolist</ion-button>
-    </section>
+
 </ion-content>

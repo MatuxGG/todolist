@@ -1,4 +1,4 @@
-<ion-item *ngIf="this.user !== undefined && this.user !== null">
+<div *ngIf="this.user !== undefined && this.user !== null">
 
     <ion-header>
         <ion-toolbar>
@@ -6,7 +6,7 @@
                 <ion-back-button defaultHref="login"></ion-back-button>
             </ion-buttons>
             <ion-title>
-                Profile of {{ this.user.displayName }}
+                {{ 'Profile' | translate }} {{ 'of' | translate }} {{ this.user.displayName }}
             </ion-title>
         </ion-toolbar>
     </ion-header>
@@ -18,22 +18,27 @@
     </ion-item>
 
     <ion-item class="items">
-        <ion-label>ID utilisateur : {{ this.user.uid }}</ion-label>
+        <ion-label>{{ 'IDUSER' | translate }} : {{ this.user.uid }}</ion-label>
     </ion-item>
 
     <ion-item class="items">
-        <ion-label>Email : {{ this.user.email }}</ion-label>
+        <ion-label>{{ 'Email' | translate }} : {{ this.user.email }}</ion-label>
     </ion-item>
 
     <ion-item class="items">
-        <ion-label>Email verified ? {{ this.user.emailVerified }}</ion-label>
+        <ion-label>{{ 'Email' | translate }} {{ 'verified' | translate }} ? {{ this.user.emailVerified }}</ion-label>
     </ion-item>
 
     <ion-item class="items">
-        <ion-button class="buttons" type="submit" (click)="this.todolists()" expand="block">My Todo Lists</ion-button>
+        <ion-button type="submit" class="buttons" (click)="this.todolists()">{{ 'Mys' | translate }} {{ 'Todolists' | translate }}</ion-button>
     </ion-item>
 
     <ion-item class="items">
-        <ion-button class="buttons" expand="block" type="submit" (click)="this.logout()">Logout</ion-button>
+
+        <ion-button class="buttons" (click)="this.changeLang(fr)">FR</ion-button>
+
+        <ion-button class="buttons" (click)="this.changeLang(en)">EN</ion-button>
+
     </ion-item>
-</ion-item>
+
+</div>
