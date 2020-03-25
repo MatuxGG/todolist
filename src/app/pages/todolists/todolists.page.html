@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="profile"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            {{ 'Todolists' | translate }}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen>
+
+    <ion-list>
+        <ion-item class="items">
+            <h1 class="h1">{{ 'YOURS TODOLISTS' | translate }}</h1>
+        </ion-item>
+
+        <ion-item-sliding *ngFor="let todolist of todolist$ | async">
+            <ion-item class="items">
+                <ion-label (click)="moveToTodolist(todolist)">{{ todolist.title }}</ion-label>
+                <ion-icon name="trash" (click)="delete(todolist)"></ion-icon>
+            </ion-item>
+        </ion-item-sliding>
+
+        <ion-item class="items">
+            <h1 class="h1">{{ 'TODOLISTS SHARED (READ MODE)' | translate }}</h1>
+        </ion-item>
+
+        <ion-item-sliding *ngFor="let todolist of todolistread$ | async">
+            <ion-item class="items">
+                <ion-label (click)="moveToTodolist(todolist)">{{ todolist.title }}</ion-label>
+                <ion-icon name="trash" (click)="deleteSharedRead(todolist)"></ion-icon>
+            </ion-item>
+        </ion-item-sliding>
+
+        <ion-item class="items">
+            <h1 class="h1">{{ 'TODOLISTS SHARED (READ/WRITE)' | translate }}</h1>
+        </ion-item>
+
+        <ion-item-sliding *ngFor="let todolist of todolistreadwrite$ | async">
+            <ion-item class="items">
+                <ion-label (click)="moveToTodolist(todolist)">{{ todolist.title }}</ion-label>
+                <ion-icon name="trash" (click)="deleteSharedReadWrite(todolist)"></ion-icon>
+            </ion-item>
+        </ion-item-sliding>
+
+        <ion-item class="items">
+            <ion-button class="buttons" [routerDirection]="'root'" [routerLink]="'/addtodolist'">{{ 'Add' | translate }} {{ 'aTodolist' | translate }}</ion-button>
+        </ion-item>
+    </ion-list>
+</ion-content>

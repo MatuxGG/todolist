@@ -1,0 +1,13 @@
+<ion-grid>
+    <ion-row>
+        <h2>{{ 'VerifyTitle' | translate }}</h2>
+    </ion-row>
+
+    <ion-row>
+        <p>{{ 'VerifyContent' | translate }}</p>
+    </ion-row>
+
+    <ion-row>
+        <ion-button type="submit" (click)="this.sendVerificationMail()" expand="block">{{ 'VerifyResend' | translate }}</ion-button>
+    </ion-row>
+</ion-grid>

@@ -1,3 +1,4 @@
+import { UtilsService } from './utils.service';
 import { Observable } from 'rxjs';
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
@@ -23,6 +24,7 @@ export class AuthenticationService {
     public ngZone: NgZone,
     private http: HttpClient,
     private platform: Platform,
+    private utilsService: UtilsService,
     private gPlus: GooglePlus
   ) {
     this.userData = this.ngFireAuth.authState;
@@ -87,8 +89,8 @@ export class AuthenticationService {
   googleAuth(): Promise<void> {
     if (this.platform.is('cordova') || this.platform.is('android')) {
       return this.gPlus.login({
-        webClientId: '106122726493-hd48veadghih3da27b5s67404ijuuhp4.apps.googleusercontent.com',
-        offline: true,
+        // webClientId: '1089033813343-7b2vqvrm4j8ocuj3g3dh8ha78ch2bmoq.apps.googleusercontent.com',
+        webClientId: '1089033813343-7gi3lt66vrc7v9kgj48ciid8tf4o4sg5.apps.googleusercontent.com',
         scopes: 'profile email'
       }).then((response) => {
         const { accessToken, accessSecret } = response;
@@ -99,7 +101,11 @@ export class AuthenticationService {
             this.router.navigate(['profile']);
           });
           this.setUserData(result.user);
+        }, (err) => {
+          this.utilsService.showToaster('Erreur auth : ' + err, 5000);
         });
+      }, (err) => {
+        this.utilsService.showToaster('Erreur gPlus : ' + err, 5000);
       });
     } else {
       return this.ngFireAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
