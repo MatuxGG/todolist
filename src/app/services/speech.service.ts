@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { UtilsService } from './utils.service';
 import { Injectable } from '@angular/core';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
@@ -10,7 +11,8 @@ export class SpeechService {
   private hasPermission: boolean;
 
   constructor(private speechRecognition: SpeechRecognition,
-              private utilsService: UtilsService) {
+              private utilsService: UtilsService,
+              private translateService: TranslateService) {
     this.hasPermission = false;
   }
 
@@ -31,13 +33,16 @@ export class SpeechService {
   }
 
   listenAndGetResult(): Promise<string> {
+    const options = {
+      language: this.translateService.instant('lang')
+    };
     let message = '';
     return this.speechRecognition.isRecognitionAvailable().then((available: boolean) => {
       if (!available) {
         this.utilsService.showToaster('Speech recognition not available', 2000);
       }
       if (this.hasPermission && available) {
-          this.speechRecognition.startListening().subscribe((matches: string[]) => {
+          this.speechRecognition.startListening(options).subscribe((matches: string[]) => {
             for (const match of matches) {
               message += match;
             }

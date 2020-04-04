@@ -27,6 +27,6 @@ export class AddtodoPage implements OnInit {
   addList(listUid: string) {
     const todo = { title: this.title, isDone: false, list: this.listUid } as Todo;
     this.todosService.add(todo);
-    this.router.navigate(['/todolist'], { queryParams: { id: this.listUid } });
+    this.router.navigate(['/todolist'], { queryParams: { listUid: this.listUid } });
   }
 }
