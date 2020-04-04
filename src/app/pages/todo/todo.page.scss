@@ -1,14 +1,17 @@
 .items, .title {
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
     margin-left: 5%;
     margin-right: 5%;
     --border-width: 0;
     --inner-border-width: 0;
 }
 .buttons {
-    width: 100%;
-    height: 70%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
 }
 .input-title {
     display: flex;
@@ -20,4 +23,19 @@
 }
 .speech {
     height: 80%;
+}
+ion-list {
+    background: var(--ion-color-secondary);
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    border: 0.05rem solid #373737;
+    box-shadow: 0.10rem 0.10rem 0.10rem 0.10rem #373737;
+}
+ion-img {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    height: auto;
 }

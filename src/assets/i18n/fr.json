@@ -1,4 +1,5 @@
 {
+    "Register User": "Nouvel utilisateur",
     "Share your Todolist": "Partager votre liste",
     "Add Todolist": "Ajouter la liste",
     "Add a Todolist": "Ajouter une liste",
@@ -24,7 +25,7 @@
     "Update todolist": "Mise à jour de la liste",
     "Update Todo": "Mettre à jour",
     "Add a picture": "Ajouter une image",
-    "Edit Todolist name": "Modifier nom de la liste",
+    "Edit Todolist name": "Modifier nom",
     "Back to lists": "Retour aux listes",
     "Share": "Partager",
     "YOURS TODOLISTS": "VOS LISTES",

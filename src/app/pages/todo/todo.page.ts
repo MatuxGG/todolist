@@ -68,13 +68,18 @@ export class TodoPage implements OnInit {
   }
 
   speech(todo: Todo): void {
-    if (this.speechService.getHasPermission()) {
-      this.speechService.listenAndGetResult().then((message: string) => {
-        this.utilsService.showToaster(message, 5000);
-        todo.title = message;
-      });
-    } else {
-      this.speechService.checkAndRequestPermissions().then();
-    }
+    this.speechService.checkAndRequestPermissions().then(() => {
+      if (this.speechService.getHasPermission) {
+        this.utilsService.showToaster('Permission for speech recognition ok', 2000);
+        this.speechService.listenAndGetResult().then((message: string) => {
+          this.utilsService.showToaster(message, 5000);
+          if (message !== '') {
+            todo.title = message;
+          }
+        });
+      } else {
+        this.utilsService.showToaster('Permission for speech recognition not set', 2000);
+      }
+    });
   }
 }

@@ -1,0 +1,18 @@
+.items, .labels {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    --border-width: 0;
+    --inner-border-width: 0;
+    --background: var(--ion-color-secondary);
+    border: 0.05rem solid #373737;
+    box-shadow: 0.10rem 0.10rem 0.10rem 0.10rem #373737;
+}
+ion-button {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+}
