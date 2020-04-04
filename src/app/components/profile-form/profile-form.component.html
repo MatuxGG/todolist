@@ -1,10 +1,8 @@
 <div *ngIf="this.user !== undefined && this.user !== null">
-    <ion-item class="items">
-        <ion-thumbnail slot="start">
-            <ion-img *ngIf="!(this.user === undefined || this.user.photoURL === undefined)" [src]="this.user.photoURL"></ion-img>
-            <ion-img *ngIf="this.user === undefined || this.user.photoURL === undefined" src="assets/placeholder-no-picture.png"></ion-img>
-        </ion-thumbnail>
-    </ion-item>
+    <ion-thumbnail slot="start">
+        <ion-img *ngIf="!(this.user === undefined || this.user.photoURL === undefined)" [src]="this.user.photoURL"></ion-img>
+        <ion-img *ngIf="this.user === undefined || this.user.photoURL === undefined" src="assets/placeholder-no-picture.png"></ion-img>
+    </ion-thumbnail>
 
     <ion-item class="items">
         <ion-label>{{ 'IDUSER' | translate }} : {{ this.user.uid }}</ion-label>
@@ -18,12 +16,10 @@
         <ion-label>{{ 'Email verified' | translate }} ? {{ this.user.emailVerified }}</ion-label>
     </ion-item>
 
-    <ion-item class="items">
-        <ion-button type="submit" class="buttons" (click)="this.todolists()">{{ 'My Todolists' | translate }}</ion-button>
-    </ion-item>
+    <ion-button type="submit" (click)="this.todolists()">{{ 'My Todolists' | translate }}</ion-button>
 
-    <ion-item class="items">
-        <ion-button class="buttons" (click)="this.changeLang('fr')">FR</ion-button>
-        <ion-button class="buttons" (click)="this.changeLang('en')">EN</ion-button>
+    <ion-item class="div-lang">
+        <ion-button class="buttons-lang" (click)="this.changeLang('fr')">FR</ion-button>
+        <ion-button class="buttons-lang" (click)="this.changeLang('en')">EN</ion-button>
     </ion-item>
 </div>

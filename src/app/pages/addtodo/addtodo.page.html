@@ -9,6 +9,7 @@
 
 <ion-content>
     <form (ngSubmit)="addList(listUid)" #addListForm="ngForm">
+<<<<<<< HEAD
         <ion-list lines="full" class="ion-no-margin ion-no-padding">
             <ion-item>
                 <ion-label position="stacked">{{ 'Title' | translate }}
@@ -28,5 +29,16 @@
             <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!addListForm.valid">
                 {{ 'Add item' | translate }}</ion-button>
         </div>
+=======
+        <ion-item>
+            <ion-label position="stacked">{{ 'Title' | translate }}
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input required id="title" type="text" name="title" [(ngModel)]="title" #ctrlTitle="ngModel"></ion-input>
+            <ion-text [hidden]="ctrlTitle.valid || ctrlTitle.pristine || title" color="danger">{{ 'Title is required' | translate }} </ion-text>
+        </ion-item>
+
+        <ion-button type="submit" class="ion-no-margin" [disabled]="!addListForm.valid">{{ 'Add item' | translate }}</ion-button>
+>>>>>>> 46fc042bb9949f3799d5cb16e0b050bacb3b44cf
     </form>
 </ion-content>

@@ -89,18 +89,24 @@ export class AuthenticationService {
   googleAuth(): Promise<void> {
     if (this.platform.is('cordova') || this.platform.is('android')) {
       return this.gPlus.login({
-        // webClientId: '1089033813343-7b2vqvrm4j8ocuj3g3dh8ha78ch2bmoq.apps.googleusercontent.com',
         webClientId: '1089033813343-7gi3lt66vrc7v9kgj48ciid8tf4o4sg5.apps.googleusercontent.com',
-        scopes: 'profile email'
+        // webClientId: '1089033813343-dn3m50hbns9sp6dbj5h67ti33hsvgmdp.apps.googleusercontent.com',
+        // debug 98:34:0D:9E:F4:F0:04:40:D8:BB:29:C8:4E:EE:68:5E:E7:D9:C1:B5
+        // webClientId: '1089033813343-7gi3lt66vrc7v9kgj48ciid8tf4o4sg5.apps.googleusercontent.com',
+        // prod
+        scopes: 'profile email',
+        offline: true
       }).then((response) => {
-        const { accessToken, accessSecret } = response;
-        const credential = accessSecret ?
-        auth.GoogleAuthProvider.credential(accessToken, accessSecret) : auth.GoogleAuthProvider.credential(accessToken);
-        return this.ngFireAuth.auth.signInWithCredential(credential).then((result) => {
+        console.log(JSON.stringify(response));
+        this.utilsService.showToaster('Auth : ' + JSON.stringify(response), 5000);
+        const cred: auth.OAuthCredential = auth.GoogleAuthProvider.credential(response.idToken, response.accessToken);
+        return this.ngFireAuth.auth.signInWithCredential(cred).then((result) => {
+          console.log(JSON.stringify(result));
+          this.utilsService.showToaster('Auth 2 : ' + JSON.stringify(result), 5000);
+          this.setUserData(result.user);
           this.ngZone.run(() => {
             this.router.navigate(['profile']);
           });
-          this.setUserData(result.user);
         }, (err) => {
           this.utilsService.showToaster('Erreur auth : ' + err, 5000);
         });
@@ -138,6 +144,9 @@ export class AuthenticationService {
   // Sign-out
   signOut(): Promise<void> {
     return this.ngFireAuth.auth.signOut().then(() => {
+      if (this.platform.is('cordova') || this.platform.is('android')) {
+        this.gPlus.logout();
+      }
       localStorage.removeItem('user');
       this.router.navigate(['login']);
     });
