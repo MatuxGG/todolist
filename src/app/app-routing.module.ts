@@ -51,6 +51,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/todolistshare/todolistshare.module').then( m => m.TodolistsharePageModule),
     canActivate: [AngularFireAuthGuard]
   },
+  {
+    path: 'location-select',
+    loadChildren: () => import('./pages/location-select/location-select.module').then( m => m.LocationSelectPageModule)
+  },
+
+
 ];
 
 @NgModule({

@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TodoService } from '../../services/todo.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { ToastController } from '@ionic/angular';
+import {NativeGeocoder, NativeGeocoderOptions} from '@ionic-native/native-geocoder/ngx';
 
 @Component({
   selector: 'app-todo',
@@ -18,6 +19,9 @@ export class TodoPage implements OnInit {
 
   public todo$: Observable<Todo>;
   public todoUid: string;
+  public pickupLocation: string;
+  public lng: number;
+  public lat: number;
 
   constructor(private todoService: TodoService,
               private route: ActivatedRoute,
@@ -25,7 +29,8 @@ export class TodoPage implements OnInit {
               private camera: Camera,
               private toastController: ToastController,
               private speechService: SpeechService,
-              private utilsService: UtilsService) {
+              private utilsService: UtilsService,
+              private geocoder: NativeGeocoder) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
    }
 
@@ -35,6 +40,17 @@ export class TodoPage implements OnInit {
       console.log('TodoUID : ' + this.todoUid);
       this.todoService.initialize(this.todoUid);
       this.todo$ = this.todoService.getTodo();
+      if (params.lng && params.lat) {
+        this.lng = params.lng;
+        this.lat = params.lat;
+        this.pickupLocation = this.getAddress(this.lat, this.lng);
+      } else {
+        this.todo$.subscribe(todo => {
+          this.lng = todo.lng;
+          this.lat = todo.lat;
+          this.pickupLocation = this.getAddress(this.lat, this.lng);
+        })
+      }
       this.todo$.subscribe(todo => {
         console.log(todo);
       });
@@ -42,6 +58,8 @@ export class TodoPage implements OnInit {
   }
 
   updateTodo(todo: Todo): void {
+    todo.lat = this.lat;
+    todo.lng = this.lng;
     this.todoService.updateTodo(todo).then( res => {
         this.router.navigate(['/todolist'], { queryParams: { listUid: todo.list } });
       }
@@ -77,4 +95,22 @@ export class TodoPage implements OnInit {
       this.speechService.checkAndRequestPermissions().then();
     }
   }
+
+  onpickupClick(){
+    this.router.navigate(['location-select'], { queryParams: { id: this.todoUid, returnPage: 'todo', lat: this.lat, lng: this.lng } });
+  }
+
+  getAddress(lat: number, long: number): string {
+    let options: NativeGeocoderOptions = {
+      useLocale: true,
+      maxResults: 5
+    };
+    console.log("vals");
+    console.log(lat + " / " + long);
+    this.geocoder.reverseGeocode(lat, long, options).then(results => {
+      return Object.values(results[0]).reverse();
+    });
+    return null;
+  }
+
 }

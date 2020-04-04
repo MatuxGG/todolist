@@ -24,6 +24,14 @@
                 <ion-toggle [(ngModel)]="todo.isDone" name="isDone"></ion-toggle>
             </ion-item>
 
+
+
+            <ion-item class="items" style="cursor: pointer;margin-top:100px;" (click)="onpickupClick()">
+                <ion-icon slot="start" name="locate"></ion-icon>
+                <ion-label position="floating">Location</ion-label>
+                <ion-textarea style="margin-top:20px;">{{todo.location}}</ion-textarea>
+            </ion-item>
+
             <ion-item class="items">
                 <ion-img [src]="todo.picture"></ion-img>
             </ion-item>
@@ -31,6 +39,7 @@
             <ion-item class="items">
                 <ion-button class="buttons" (click)="this.addPicture(todo)">{{ 'Add a picture' | translate }}</ion-button>
             </ion-item>
+
 
             <ion-item class="items">
                 <ion-button class="buttons" type="submit" [disabled]="!todoForm.valid">{{ 'Update Todo' | translate }}</ion-button>

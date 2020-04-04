@@ -19,6 +19,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpModule } from '@angular/http';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 
 export function CreateTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -54,6 +56,8 @@ export function CreateTranslateLoader(http: HttpClient) {
     AngularFireAuthGuard,
     GooglePlus,
     SpeechRecognition,
+    Geolocation,
+    NativeGeocoder,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent]
