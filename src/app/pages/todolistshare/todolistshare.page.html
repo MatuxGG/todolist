@@ -3,17 +3,21 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref="todolist"></ion-back-button>
         </ion-buttons>
-        <ion-title>{{ 'Share' | translate }} {{ 'your' | translate }} {{ 'Todolist' | translate }}</ion-title>
+        <ion-title>{{ 'Share your Todolist' | translate }}</ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-searchbar (ionInput)="getUsers($event)"></ion-searchbar>
-<ion-item>
-    <ion-label>{{ 'ReadWrite' | translate }}</ion-label>
-    <ion-toggle [(ngModel)]="readwrite"></ion-toggle>
-</ion-item>
-<ion-list>
-    <ion-item *ngFor="let user of this.getAllUsersFiltered() | async" (click)="shareWithUser(user.uid)">
-        {{ user.email }}
-    </ion-item>
-</ion-list>
+<ion-content fullScreen>
+    <div>
+        <ion-searchbar (ionInput)="getUsers($event)"></ion-searchbar>
+        <ion-item>
+            <ion-label>{{ 'ReadWrite' | translate }}</ion-label>
+            <ion-toggle [(ngModel)]="readwrite"></ion-toggle>
+        </ion-item>
+        <ion-list>
+            <ion-item *ngFor="let user of this.getAllUsersFiltered() | async" (click)="shareWithUser(user.uid)">
+                {{ user.email }}
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>

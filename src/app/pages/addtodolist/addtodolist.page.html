@@ -3,25 +3,21 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref="todolists"></ion-back-button>
         </ion-buttons>
-        <ion-title>{{ 'Add' | translate }} {{ 'Todolist' | translate }} </ion-title>
+        <ion-title>{{ 'Add Todolist' | translate }} </ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <form (ngSubmit)="addList()" #addListForm="ngForm">
-        <ion-list lines="full" class="ion-no-margin ion-no-padding">
-            <ion-item>
-                <ion-label position="stacked">{{ 'Title' | translate }}
-                    <ion-text color="danger">*</ion-text>
-                </ion-label>
-                <ion-input required id="title" type="text" name="title" [(ngModel)]="title" #ctrlTitle="ngModel">
-                </ion-input>
-                <ion-text [hidden]="ctrlTitle.valid || ctrlTitle.pristine || title" color="danger">{{ 'Title' | translate }} {{ 'is' | translate }} {{ 'required' | translate }} </ion-text>
-            </ion-item>
-        </ion-list>
-        <div class="ion-padding">
-            <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!addListForm.valid">
-                {{ 'Add' | translate }} {{ 'item' | translate }}</ion-button>
-        </div>
+        <ion-item>
+            <ion-label position="stacked">{{ 'Title' | translate }}
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input required id="title" type="text" name="title" [(ngModel)]="title" #ctrlTitle="ngModel"></ion-input>
+            <ion-text [hidden]="ctrlTitle.valid || ctrlTitle.pristine || title" color="danger">{{ 'Title is required' | translate }} </ion-text>
+        </ion-item>
+
+        <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!addListForm.valid">
+                {{ 'Add item' | translate }}</ion-button>
     </form>
 </ion-content>
