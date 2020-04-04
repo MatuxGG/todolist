@@ -9,7 +9,5 @@
         <ion-input type="password" #password required></ion-input>
     </ion-item>
 
-    <ion-item class="items">
-        <ion-button expand="block" type="submit" class="buttons" [disabled]="!signUpForm.valid">{{ 'Register' | translate }}</ion-button>
-    </ion-item>
+    <ion-button type="submit" class="buttons" [disabled]="!signUpForm.valid">{{ 'Register' | translate }}</ion-button>
 </form>

@@ -18,8 +18,11 @@ Comment utiliser l'application ?
 - En cliquant sur les noms de listes, vous accèder à son contenu
 - Si vous en avez le droit, vous pouvez modifier le contenu des différents Todo
 
+Actions non évidentes :
+- Pour supprimer un Todo, il faut faire glisser le nom sur la gauche pour faire apparaitre la poubelle
+
 Fonctionnalités de base implémentées :
-- Login par email/mot de passe avec vérification d'email
+- Login par email/mot de passe sans vérification d'email
 - Login par Google
 - Création de listes de Todo
 - Création de Todo au sein de ces listes
@@ -28,5 +31,7 @@ Fonctionnalités de base implémentées :
 Fonctionnalités supplémentaires implémentées :
 - Internationalisation (Français et Anglais, changeable dans le menu)
 - Photo sur le Todo
-- Reconnaissance vocale sur tous les champs textes (en cours, pas encore finie)
 - Localisation du lieu du Todo
+
+Fonctionnalités supplémentaires en cours mais qui ne marchent pas :
+- Reconnaissance vocale sur tous les champs textes : le moteur dit que la reconnaissance n'est pas disponible sur mon smartphone alors qu'il a les permissions...

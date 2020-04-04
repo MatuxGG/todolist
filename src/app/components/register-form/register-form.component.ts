@@ -19,10 +19,12 @@ export class RegisterFormComponent implements OnInit {
       console.log(email.value, password.value);
       this.authService.registerUser(email.value, password.value)
       .then((res) => {
-        console.log('Before Send Verification mail');
+        this.router.navigate(['profile']);
+        // We don't want to verify email here
+        /*console.log('Before Send Verification mail');
         this.authService.sendVerificationMail().then(
             () => { this.router.navigate(['verify-email']); }
-        );
+        );*/
       }).catch((error) => {
         window.alert(error.message);
         console.log(error.message);

@@ -63,6 +63,9 @@ ion-header {
     border: 0.05rem solid #373737;
     box-shadow: 0.10rem 0.10rem 0.10rem 0.10rem #373737;
 }
+:root {
+    --ion-color-secondary: #ffeb93;
+}
 ion-toolbar {
-    --background: #ffda33;
+    --background: var(--ion-color-secondary);
 }

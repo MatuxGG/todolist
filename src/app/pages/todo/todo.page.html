@@ -35,15 +35,15 @@
             <ion-item class="items">
                 <ion-img [src]="todo.picture"></ion-img>
             </ion-item>
+            <ion-img [src]="todo.picture"></ion-img>
 
-            <ion-item class="items">
-                <ion-button class="buttons" (click)="this.addPicture(todo)">{{ 'Add a picture' | translate }}</ion-button>
-            </ion-item>
+            <ion-button class="buttons" (click)="this.addPicture(todo)">{{ 'Add a picture' | translate }}</ion-button>
 
 
             <ion-item class="items">
                 <ion-button class="buttons" type="submit" [disabled]="!todoForm.valid">{{ 'Update Todo' | translate }}</ion-button>
             </ion-item>
+            <ion-button class="buttons" type="submit" [disabled]="!todoForm.valid">{{ 'Update Todo' | translate }}</ion-button>
         </ion-list>
     </form>
 </ion-content>
