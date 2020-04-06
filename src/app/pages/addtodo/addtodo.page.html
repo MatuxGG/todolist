@@ -18,7 +18,7 @@
                 </ion-input>
                 <ion-text [hidden]="ctrlTitle.valid || ctrlTitle.pristine || title" color="danger">{{ 'Title is required' | translate }} </ion-text>
             </ion-item>
-            <ion-item style="cursor: pointer;margin-top:100px;" (click)="onpickupClick()">
+            <ion-item style="cursor: pointer;" (click)="onpickupClick()">
                 <ion-icon slot="start" name="locate"></ion-icon>
                 <ion-label position="stacked">Pickup Location</ion-label>
                 <ion-textarea style="margin-top:20px;">{{pickupLocation}}</ion-textarea>

@@ -98,11 +98,11 @@ export class AuthenticationService {
         offline: true
       }).then((response) => {
         console.log(JSON.stringify(response));
-        this.utilsService.showToaster('Auth : ' + JSON.stringify(response), 5000);
+        // this.utilsService.showToaster('Auth : ' + JSON.stringify(response), 2000);
         const cred: auth.OAuthCredential = auth.GoogleAuthProvider.credential(response.idToken, response.accessToken);
         return this.ngFireAuth.auth.signInWithCredential(cred).then((result) => {
           console.log(JSON.stringify(result));
-          this.utilsService.showToaster('Auth 2 : ' + JSON.stringify(result), 5000);
+          // this.utilsService.showToaster('Auth 2 : ' + JSON.stringify(result), 2000);
           this.setUserData(result.user);
           this.ngZone.run(() => {
             this.router.navigate(['profile']);

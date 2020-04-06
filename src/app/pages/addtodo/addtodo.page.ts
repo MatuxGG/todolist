@@ -28,7 +28,7 @@ export class AddtodoPage implements OnInit {
                }
 
   ngOnInit() {
-    this.pickupLocation = "No location"; 
+    this.pickupLocation = '';
     this.lat = null;
     this.lng = null;
     this.route.queryParams.subscribe(params => {
@@ -36,39 +36,20 @@ export class AddtodoPage implements OnInit {
       if (params.lat && params.lng) {
         this.lat = params.lat;
         this.lng = params.lng;
-        this.pickupLocation = this.getAddress(this.lat, this.lng);
+        this.pickupLocation = params.pickupLocation;
       }
     });
   }
 
   addList(listUid: string) {
-    const todo = { title: this.title, isDone: false, list: this.listUid, location: this.pickupLocation } as Todo;
+    const todo = { title: this.title, isDone: false, list: this.listUid, location: this.pickupLocation,
+                   lat: this.lat, lng: this.lng } as Todo;
     this.todosService.add(todo);
     this.router.navigate(['/todolist'], { queryParams: { listUid: this.listUid } });
   }
 
-  onpickupClick(){
-    if (this.lat && this.lng) {
-      this.router.navigate(['location-select'], { queryParams: { id: this.listUid, returnPage: 'addtodo', lat: this.lat, lng: this.lng} });
-    } else {
-      this.geolocation.getCurrentPosition().then((resp) => {
-        this.router.navigate(['location-select'], { queryParams: { id: this.listUid, returnPage: 'addtodo', lat: resp.coords.latitude, lng: resp.coords.longitude} });
-       }).catch((error) => {
-         console.log('Error getting location', error);
-       });
-    }
-  }
-
-  getAddress(lat: number, long: number): string {
-    let options: NativeGeocoderOptions = {
-      useLocale: true,
-      maxResults: 5
-    };
-    console.log("vals");
-    console.log(lat + " / " + long);
-    this.geocoder.reverseGeocode(lat, long, options).then(results => {
-      return Object.values(results[0]).reverse();
-    });
-    return null;
+  onpickupClick() {
+    this.router.navigate(['location-select'], { queryParams: { listUid: this.listUid, returnPage: 'addtodo',
+                                                               lat: this.lat, lng: this.lng} });
   }
 }

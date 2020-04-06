@@ -8,41 +8,37 @@
 </ion-header>
 
 <ion-content fullscreen>
-    <form *ngIf="todo$ | async as todo" (ngSubmit)="this.updateTodo(todo)" #todoForm="ngForm">
+    <form *ngIf="todo$ | async" (ngSubmit)="this.updateTodo()" #todoForm="ngForm">
         <ion-list>
             <ion-item class="title">
                 <ion-item class="ion-no-padding input-title">
                     <ion-label position="floating">{{ 'Title' | translate }}</ion-label>
-                    <ion-input type="text" [(ngModel)]="todo.title" name="title" required></ion-input>
+                    <ion-input type="text" [(ngModel)]="this.todo.title" name="title" required></ion-input>
                 </ion-item>
 
-                <ion-button class="speech" (click)="this.speech(todo)">{{ 'Speech recognition' | translate }}</ion-button>
+                <ion-button class="speech" (click)="this.speech()">{{ 'Speech recognition' | translate }}</ion-button>
             </ion-item>
 
             <ion-item class="items">
                 <ion-label>{{ 'Is done' | translate }}</ion-label>
-                <ion-toggle [(ngModel)]="todo.isDone" name="isDone"></ion-toggle>
+                <ion-toggle [(ngModel)]="this.todo.isDone" name="isDone"></ion-toggle>
             </ion-item>
 
 
 
-            <ion-item class="items" style="cursor: pointer;margin-top:100px;" (click)="onpickupClick()">
+            <ion-item class="items" style="cursor: pointer;" (click)="onpickupClick()">
                 <ion-icon slot="start" name="locate"></ion-icon>
-                <ion-label position="floating">Location</ion-label>
-                <ion-textarea style="margin-top:20px;">{{todo.location}}</ion-textarea>
+                <ion-label position="stacked">Location</ion-label>
+                <ion-textarea>{{this.todo.location}}</ion-textarea>
             </ion-item>
 
             <ion-item class="items">
-                <ion-img [src]="todo.picture"></ion-img>
+                <ion-img [src]="this.todo.picture"></ion-img>
             </ion-item>
-            <ion-img [src]="todo.picture"></ion-img>
+            <ion-img [src]="this.todo.picture"></ion-img>
 
-            <ion-button class="buttons" (click)="this.addPicture(todo)">{{ 'Add a picture' | translate }}</ion-button>
+            <ion-button class="buttons" (click)="this.addPicture()">{{ 'Add a picture' | translate }}</ion-button>
 
-
-            <ion-item class="items">
-                <ion-button class="buttons" type="submit" [disabled]="!todoForm.valid">{{ 'Update Todo' | translate }}</ion-button>
-            </ion-item>
             <ion-button class="buttons" type="submit" [disabled]="!todoForm.valid">{{ 'Update Todo' | translate }}</ion-button>
         </ion-list>
     </form>

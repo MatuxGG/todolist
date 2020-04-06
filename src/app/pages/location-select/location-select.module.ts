@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { LocationSelectPageRoutingModule } from './location-select-routing.module';
 
 import { LocationSelectPage } from './location-select.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { LocationSelectPage } from './location-select.page';
     FormsModule,
     IonicModule,
     LocationSelectPageRoutingModule,
+    TranslateModule,
   ],
   declarations: [LocationSelectPage]
 })

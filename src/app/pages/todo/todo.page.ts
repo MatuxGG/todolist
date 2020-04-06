@@ -18,19 +18,15 @@ import {NativeGeocoder, NativeGeocoderOptions} from '@ionic-native/native-geocod
 export class TodoPage implements OnInit {
 
   public todo$: Observable<Todo>;
+  public todo: Todo;
   public todoUid: string;
-  public pickupLocation: string;
-  public lng: number;
-  public lat: number;
 
   constructor(private todoService: TodoService,
               private route: ActivatedRoute,
               private router: Router,
               private camera: Camera,
-              private toastController: ToastController,
               private speechService: SpeechService,
-              private utilsService: UtilsService,
-              private geocoder: NativeGeocoder) {
+              private utilsService: UtilsService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
    }
 
@@ -40,33 +36,25 @@ export class TodoPage implements OnInit {
       console.log('TodoUID : ' + this.todoUid);
       this.todoService.initialize(this.todoUid);
       this.todo$ = this.todoService.getTodo();
-      if (params.lng && params.lat) {
-        this.lng = params.lng;
-        this.lat = params.lat;
-        this.pickupLocation = this.getAddress(this.lat, this.lng);
-      } else {
-        this.todo$.subscribe(todo => {
-          this.lng = todo.lng;
-          this.lat = todo.lat;
-          this.pickupLocation = this.getAddress(this.lat, this.lng);
-        })
-      }
       this.todo$.subscribe(todo => {
-        console.log(todo);
+        this.todo = todo;
       });
+      if (params.lng && params.lat) {
+        this.todo.lng = params.lng;
+        this.todo.lat = params.lat;
+        this.todo.location = params.pickupLocation;
+      }
     });
   }
 
-  updateTodo(todo: Todo): void {
-    todo.lat = this.lat;
-    todo.lng = this.lng;
-    this.todoService.updateTodo(todo).then( res => {
-        this.router.navigate(['/todolist'], { queryParams: { listUid: todo.list } });
+  updateTodo(): void {
+    this.todoService.updateTodo(this.todo).then( res => {
+        this.router.navigate(['/todolist'], { queryParams: { listUid: this.todo.list } });
       }
     );
   }
 
-  addPicture(todo: Todo): Promise<void> {
+  addPicture(): Promise<void> {
     const options: CameraOptions = {
       quality: 30,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -77,22 +65,22 @@ export class TodoPage implements OnInit {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
       const base64Image = 'data:image/jpeg;base64,' + imageData;
-      todo.picture = base64Image;
-      this.utilsService.showToaster('Image updated', 5000);
+      this.todo.picture = base64Image;
+      this.utilsService.showToaster('Image updated', 2000);
     }, (err) => {
       // Handle error
       this.utilsService.showToaster(err, 5000);
     });
   }
 
-  speech(todo: Todo): void {
+  speech(): void {
     this.speechService.checkAndRequestPermissions().then(() => {
       if (this.speechService.getHasPermission) {
         this.utilsService.showToaster('Permission for speech recognition ok', 2000);
         this.speechService.listenAndGetResult().then((message: string) => {
           this.utilsService.showToaster(message, 5000);
           if (message !== '') {
-            todo.title = message;
+            this.todo.title = message;
           }
         });
       } else {
@@ -101,21 +89,8 @@ export class TodoPage implements OnInit {
     });
   }
 
-  onpickupClick(){
-    this.router.navigate(['location-select'], { queryParams: { id: this.todoUid, returnPage: 'todo', lat: this.lat, lng: this.lng } });
+  onpickupClick() {
+    this.router.navigate(['location-select'], { queryParams: { todoUid: this.todoUid, returnPage: 'todo',
+                                                               lat: this.todo.lat, lng: this.todo.lng } });
   }
-
-  getAddress(lat: number, long: number): string {
-    let options: NativeGeocoderOptions = {
-      useLocale: true,
-      maxResults: 5
-    };
-    console.log("vals");
-    console.log(lat + " / " + long);
-    this.geocoder.reverseGeocode(lat, long, options).then(results => {
-      return Object.values(results[0]).reverse();
-    });
-    return null;
-  }
-
 }

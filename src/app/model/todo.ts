@@ -6,4 +6,5 @@ export interface Todo {
   picture?: string;
   lat?: number;
   lng?: number;
+  location?: string;
 }
