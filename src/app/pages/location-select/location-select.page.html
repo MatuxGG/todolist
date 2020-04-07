@@ -1,7 +1,10 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+            <ion-back-button defaultHref=""></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button class="select" (click)="this.select()">{{ 'Select' | translate }}</ion-button>
         </ion-buttons>
         <ion-title>{{ 'Pickup location for your Todo' | translate }}</ion-title>
     </ion-toolbar>

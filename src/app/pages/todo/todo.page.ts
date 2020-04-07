@@ -36,15 +36,28 @@ export class TodoPage implements OnInit {
       console.log('TodoUID : ' + this.todoUid);
       this.todoService.initialize(this.todoUid);
       this.todo$ = this.todoService.getTodo();
-      this.todo$.subscribe(todo => {
-        this.todo = todo;
-      });
-      if (params.lng && params.lat) {
-        this.todo.lng = params.lng;
-        this.todo.lat = params.lat;
-        this.todo.location = params.pickupLocation;
+      const todoStored = localStorage.getItem('todo');
+      if (todoStored !== null) {
+        this.todo = JSON.parse(todoStored) as Todo;
+        localStorage.removeItem('todo');
+      } else {
+        this.todo$.subscribe(todo => {
+          this.todo = todo;
+          if (params.lng && params.lat) {
+            this.todo.lng = params.lng;
+            this.todo.lat = params.lat;
+            if (this.todo.location !== undefined && this.todo.location !== null) {
+              this.todo.location = params.pickupLocation;
+            }
+          }
+        });
       }
     });
+  }
+
+  removeLoc(): void {
+    delete this.todo.lng;
+    delete this.todo.lat;
   }
 
   updateTodo(): void {
@@ -52,6 +65,10 @@ export class TodoPage implements OnInit {
         this.router.navigate(['/todolist'], { queryParams: { listUid: this.todo.list } });
       }
     );
+  }
+
+  backButton(): void {
+    this.router.navigate(['/todolist'], { queryParams: { listUid: this.todo.list } });
   }
 
   addPicture(): Promise<void> {
@@ -90,7 +107,8 @@ export class TodoPage implements OnInit {
   }
 
   onpickupClick() {
-    this.router.navigate(['location-select'], { queryParams: { todoUid: this.todoUid, returnPage: 'todo',
-                                                               lat: this.todo.lat, lng: this.todo.lng } });
+    localStorage.setItem('todo', JSON.stringify(this.todo));
+    this.router.navigate(['location-select'], {queryParams: { todoUid: this.todoUid, returnPage: 'todo',
+                                               lat: this.todo.lat, lng: this.todo.lng, pickupLocation: this.todo.location }});
   }
 }

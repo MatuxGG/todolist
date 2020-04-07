@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button defaultHref="todolists"></ion-back-button>
+            <ion-back-button defaultHref="" (click)="this.backButton()"></ion-back-button>
         </ion-buttons>
         <ion-title>{{ 'Todo modification' | translate }}</ion-title>
     </ion-toolbar>
@@ -16,7 +16,7 @@
                     <ion-input type="text" [(ngModel)]="this.todo.title" name="title" required></ion-input>
                 </ion-item>
 
-                <ion-button class="speech" (click)="this.speech()">{{ 'Speech recognition' | translate }}</ion-button>
+                <!-- <ion-button class="speech" (click)="this.speech()">{{ 'Speech recognition' | translate }}</ion-button> -->
             </ion-item>
 
             <ion-item class="items">
@@ -26,15 +26,20 @@
 
 
 
-            <ion-item class="items" style="cursor: pointer;" (click)="onpickupClick()">
-                <ion-icon slot="start" name="locate"></ion-icon>
-                <ion-label position="stacked">Location</ion-label>
-                <ion-textarea>{{this.todo.location}}</ion-textarea>
+            <ion-item class="items">
+                <ion-icon slot="start" name="locate" (click)="onpickupClick()"></ion-icon>
+                <ion-label (click)="onpickupClick()">Location</ion-label>
+                <ion-icon name="trash" (click)="removeLoc()"></ion-icon>
             </ion-item>
 
-            <ion-item class="items">
-                <ion-img [src]="this.todo.picture"></ion-img>
+            <ion-item class="items" *ngIf="this.todo.lat">
+                <ion-label class="loc">{{ 'Lattitude : ' | translate }}{{todo.lat}}</ion-label>
             </ion-item>
+
+            <ion-item class="items" *ngIf="this.todo.lng">
+                <ion-label class="loc">{{ 'Longitude: ' | translate }}{{todo.lng}}</ion-label>
+            </ion-item>
+
             <ion-img [src]="this.todo.picture"></ion-img>
 
             <ion-button class="buttons" (click)="this.addPicture()">{{ 'Add a picture' | translate }}</ion-button>

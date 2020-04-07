@@ -98,7 +98,9 @@
             "cordova-plugin-camera": {},
             "cordova-plugin-speechrecognition": {},
             "cordova-plugin-googleplus": {
-                "REVERSED_CLIENT_ID": "1089033813343-7b2vqvrm4j8ocuj3g3dh8ha78ch2bmoq.apps.googleusercontent.com"
+                "REVERSED_CLIENT_ID": "io.ionic.starter",
+                "WEB_APPLICATION_CLIENT_ID": "1089033813343-7b2vqvrm4j8ocuj3g3dh8ha78ch2bmoq.apps.googleusercontent.com",
+                "PLAY_SERVICES_VERSION": "15.0.1"
             },
             "cordova-plugin-geolocation": {},
             "cordova-plugin-nativegeocoder": {

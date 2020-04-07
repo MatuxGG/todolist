@@ -31,7 +31,7 @@ Fonctionnalités de base implémentées :
 Fonctionnalités supplémentaires implémentées :
 - Internationalisation (Français et Anglais, changeable dans le menu)
 - Photo sur le Todo
-- Localisation du lieu du Todo
+- Localisation du lieu du Todo avec les coordonnées GPS (mais pas l'adresse)
 
 Fonctionnalités supplémentaires en cours mais qui ne marchent pas :
 - Reconnaissance vocale sur tous les champs textes : le moteur dit que la reconnaissance n'est pas disponible sur mon smartphone alors qu'il a les permissions...
