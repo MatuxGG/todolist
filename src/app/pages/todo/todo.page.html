@@ -47,7 +47,9 @@
                 <ion-label class="loc">{{ 'Longitude: ' | translate }}{{todo.lng}}</ion-label>
             </ion-item>
 
-            <ion-img [src]="this.todo.picture"></ion-img>
+            <ion-img *ngIf="this.todo.picture" [src]="this.todo.picture"></ion-img>
+
+            <ion-button *ngIf="(this.canWrite | async) && this.todo.picture" class="buttons" (click)="this.deletePicture()">{{ 'Delete the picture' | translate }}</ion-button>
 
             <ion-button *ngIf="(this.canWrite | async)" class="buttons" (click)="this.addPicture()">{{ 'Add a picture' | translate }}</ion-button>
 

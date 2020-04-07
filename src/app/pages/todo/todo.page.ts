@@ -47,20 +47,25 @@ export class TodoPage implements OnInit {
         this.todo = JSON.parse(todoStored) as Todo;
         localStorage.removeItem('todo');
         this.canWriteFunc(this.todo);
+        this.updateGPS(params);
       } else {
         this.todo$.subscribe(todo => {
           this.todo = todo;
           this.canWriteFunc(this.todo);
-          if (params.lng && params.lat) {
-            this.todo.lng = params.lng;
-            this.todo.lat = params.lat;
-            if (this.todo.location !== undefined && this.todo.location !== null) {
-              this.todo.location = params.pickupLocation;
-            }
-          }
+          this.updateGPS(params);
         });
       }
     });
+  }
+
+  updateGPS(params): void {
+    if (params.lng && params.lat) {
+      this.todo.lng = params.lng;
+      this.todo.lat = params.lat;
+      if (this.todo.location !== undefined && this.todo.location !== null) {
+        this.todo.location = params.pickupLocation;
+      }
+    }
   }
 
   removeLoc(): void {
@@ -96,6 +101,10 @@ export class TodoPage implements OnInit {
       // Handle error
       this.utilsService.showToaster(err, 5000);
     });
+  }
+
+  deletePicture(): void {
+    delete this.todo.picture;
   }
 
   speech(): void {

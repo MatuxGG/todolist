@@ -14,23 +14,29 @@
                 <ion-text color="danger">*</ion-text>
             </ion-label>
 
-            <ion-item>
-                <ion-icon slot="start" name="locate" (click)="onpickupClick()"></ion-icon>
-                <ion-label (click)="onpickupClick()">{{ 'Pickup location' | translate }}</ion-label>
-                <ion-icon name="trash" (click)="removeLoc()"></ion-icon>
-            </ion-item>
-
-            <ion-item class="items" *ngIf="this.todo.lat">
-                <ion-label class="loc">{{ 'Lattitude : ' | translate }}{{todo.lat}}</ion-label>
-            </ion-item>
-
-            <ion-item class="items" *ngIf="this.todo.lng">
-                <ion-label class="loc">{{ 'Longitude: ' | translate }}{{todo.lng}}</ion-label>
-            </ion-item>
-
             <ion-input required id="title" type="text" name="title" [(ngModel)]="todo.title" #ctrlTitle="ngModel"></ion-input>
             <ion-text [hidden]="ctrlTitle.valid || ctrlTitle.pristine || title" color="danger">{{ 'Title is required' | translate }} </ion-text>
         </ion-item>
+
+        <ion-item>
+            <ion-icon slot="start" name="locate" (click)="onpickupClick()"></ion-icon>
+            <ion-label (click)="onpickupClick()">{{ 'Pickup location' | translate }}</ion-label>
+            <ion-icon name="trash" (click)="removeLoc()"></ion-icon>
+        </ion-item>
+
+        <ion-item class="items" *ngIf="this.todo.lat">
+            <ion-label class="loc">{{ 'Lattitude : ' | translate }}{{todo.lat}}</ion-label>
+        </ion-item>
+
+        <ion-item class="items" *ngIf="this.todo.lng">
+            <ion-label class="loc">{{ 'Longitude: ' | translate }}{{todo.lng}}</ion-label>
+        </ion-item>
+
+        <ion-img *ngIf="this.todo.picture" [src]="this.todo.picture"></ion-img>
+
+        <ion-button *ngIf="this.todo.picture" class="buttons" (click)="this.deletePicture()">{{ 'Delete the picture' | translate }}</ion-button>
+
+        <ion-button class="buttons" (click)="this.addPicture()">{{ 'Add a picture' | translate }}</ion-button>
 
         <ion-button type="submit" class="ion-no-margin" [disabled]="!addTodoForm.valid">{{ 'Add item' | translate }}</ion-button>
     </form>

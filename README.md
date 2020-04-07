@@ -30,7 +30,7 @@ Fonctionnalités de base implémentées :
 
 Fonctionnalités supplémentaires implémentées :
 - Internationalisation (Français et Anglais, changeable dans le menu)
-- Photo sur le Todo
+- Une photo sur le Todo
 - Localisation du lieu du Todo avec les coordonnées GPS (mais pas l'adresse)
 
 Fonctionnalités supplémentaires en cours mais qui ne marchent pas :
