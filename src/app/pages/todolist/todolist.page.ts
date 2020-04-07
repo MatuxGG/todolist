@@ -73,7 +73,7 @@ export class TodolistPage implements OnInit {
 
   canWriteFunc(todolist: Todolist): void {
     this.authService.getUser().subscribe((user: firebase.User) => {
-      const cond = todolist.owner === user.uid || (todolist.accessWriting !== undefined && todolist.accessWriting.includes(user.uid))
+      const cond = todolist.owner === user.uid || (todolist.accessWriting !== undefined && todolist.accessWriting.includes(user.uid));
       console.log(cond);
       this.canWrite = of(cond);
     });

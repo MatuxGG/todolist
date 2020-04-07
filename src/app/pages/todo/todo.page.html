@@ -3,7 +3,8 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref="" (click)="this.backButton()"></ion-back-button>
         </ion-buttons>
-        <ion-title>{{ 'Todo modification' | translate }}</ion-title>
+        <ion-title *ngIf="(this.canWrite | async)">{{ 'Todo modification' | translate }}</ion-title>
+        <ion-title *ngIf="!(this.canWrite | async)">{{ 'Todo modification [READ ONLY]' | translate }}</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -11,9 +12,14 @@
     <form *ngIf="todo$ | async" (ngSubmit)="this.updateTodo()" #todoForm="ngForm">
         <ion-list>
             <ion-item class="title">
-                <ion-item class="ion-no-padding input-title">
+                <ion-item class="ion-no-padding input-title" *ngIf="(this.canWrite | async)">
                     <ion-label position="floating">{{ 'Title' | translate }}</ion-label>
                     <ion-input type="text" [(ngModel)]="this.todo.title" name="title" required></ion-input>
+                </ion-item>
+
+                <ion-item class="ion-no-padding input-title" *ngIf="!(this.canWrite | async)">
+                    <ion-label >{{ 'Title' | translate }} :</ion-label>
+                    <ion-label>{{this.todo.title}}</ion-label>
                 </ion-item>
 
                 <!-- <ion-button class="speech" (click)="this.speech()">{{ 'Speech recognition' | translate }}</ion-button> -->
@@ -21,12 +27,13 @@
 
             <ion-item class="items">
                 <ion-label>{{ 'Is done' | translate }}</ion-label>
-                <ion-toggle [(ngModel)]="this.todo.isDone" name="isDone"></ion-toggle>
+                <ion-toggle *ngIf="(this.canWrite | async)" [(ngModel)]="this.todo.isDone" name="isDone"></ion-toggle>
+                <ion-toggle *ngIf="!(this.canWrite | async)" disabled="true" [(ngModel)]="this.todo.isDone" name="isDone"></ion-toggle>
             </ion-item>
 
 
 
-            <ion-item class="items">
+            <ion-item class="items" *ngIf="(this.canWrite | async)">
                 <ion-icon slot="start" name="locate" (click)="onpickupClick()"></ion-icon>
                 <ion-label (click)="onpickupClick()">Location</ion-label>
                 <ion-icon name="trash" (click)="removeLoc()"></ion-icon>
@@ -42,9 +49,9 @@
 
             <ion-img [src]="this.todo.picture"></ion-img>
 
-            <ion-button class="buttons" (click)="this.addPicture()">{{ 'Add a picture' | translate }}</ion-button>
+            <ion-button *ngIf="(this.canWrite | async)" class="buttons" (click)="this.addPicture()">{{ 'Add a picture' | translate }}</ion-button>
 
-            <ion-button class="buttons" type="submit" [disabled]="!todoForm.valid">{{ 'Update Todo' | translate }}</ion-button>
+            <ion-button *ngIf="(this.canWrite | async)" class="buttons" type="submit" [disabled]="!todoForm.valid">{{ 'Update Todo' | translate }}</ion-button>
         </ion-list>
     </form>
 </ion-content>

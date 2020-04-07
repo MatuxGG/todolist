@@ -1,7 +1,10 @@
+import { Todolist } from './../../model/todolist';
+import { TodolistService } from './../../services/todolist.service';
+import { AuthenticationService } from './../../services/authentication.service';
 import { UtilsService } from './../../services/utils.service';
 import { SpeechService } from '../../services/speech.service';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Todo } from '../../model/todo';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TodoService } from '../../services/todo.service';
@@ -20,13 +23,16 @@ export class TodoPage implements OnInit {
   public todo$: Observable<Todo>;
   public todo: Todo;
   public todoUid: string;
+  public canWrite: Observable<any>;
 
   constructor(private todoService: TodoService,
               private route: ActivatedRoute,
               private router: Router,
               private camera: Camera,
               private speechService: SpeechService,
-              private utilsService: UtilsService) {
+              private utilsService: UtilsService,
+              private authService: AuthenticationService,
+              private todolistService: TodolistService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
    }
 
@@ -40,9 +46,11 @@ export class TodoPage implements OnInit {
       if (todoStored !== null) {
         this.todo = JSON.parse(todoStored) as Todo;
         localStorage.removeItem('todo');
+        this.canWriteFunc(this.todo);
       } else {
         this.todo$.subscribe(todo => {
           this.todo = todo;
+          this.canWriteFunc(this.todo);
           if (params.lng && params.lat) {
             this.todo.lng = params.lng;
             this.todo.lat = params.lat;
@@ -110,5 +118,17 @@ export class TodoPage implements OnInit {
     localStorage.setItem('todo', JSON.stringify(this.todo));
     this.router.navigate(['location-select'], {queryParams: { todoUid: this.todoUid, returnPage: 'todo',
                                                lat: this.todo.lat, lng: this.todo.lng, pickupLocation: this.todo.location }});
+  }
+
+  canWriteFunc(todo: Todo): void {
+    this.authService.getUser().subscribe((user: firebase.User) => {
+      const listId = todo.list;
+      this.todolistService.initialize(listId);
+      this.todolistService.getTodolist().subscribe((todolist: Todolist) => {
+        const cond = todolist.owner === user.uid || (todolist.accessWriting !== undefined && todolist.accessWriting.includes(user.uid));
+        console.log(cond);
+        this.canWrite = of(cond);
+      });
+    });
   }
 }

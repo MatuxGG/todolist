@@ -47,5 +47,5 @@
 
     <ion-button (click)="backToAllList()">{{ 'Back to lists' | translate }}</ion-button>
 
-    <ion-button (click)="shareToDoList()">{{ 'Share' | translate }}</ion-button>
+    <ion-button *ngIf="(this.canWrite | async)" (click)="shareToDoList()">{{ 'Share' | translate }}</ion-button>
 </ion-content>
