@@ -10,6 +10,7 @@ Comment compiler l'application ?
 - Puis ensuite pour lancer sur Web "ionic serve" ou sur mobile "ionic cordova android run"
 
 Si vous voulez lancer l'application sur Android, un apk du nom de "todolist.apk" est présent à la racine du projet Github.
+La version web est disponible à l'url : https://todolist-8b030.web.app
 
 Comment utiliser l'application ?
 - Connectez vous par Google ou Email/Mot de passe
