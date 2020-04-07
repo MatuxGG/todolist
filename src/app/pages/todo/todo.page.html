@@ -4,7 +4,7 @@
             <ion-back-button defaultHref="" (click)="this.backButton()"></ion-back-button>
         </ion-buttons>
         <ion-title *ngIf="(this.canWrite | async)">{{ 'Todo modification' | translate }}</ion-title>
-        <ion-title *ngIf="!(this.canWrite | async)">{{ 'Todo modification [READ ONLY]' | translate }}</ion-title>
+        <ion-title *ngIf="!(this.canWrite | async)">{{ 'Todo visualisation [READ ONLY]' | translate }}</ion-title>
     </ion-toolbar>
 </ion-header>
 
