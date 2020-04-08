@@ -12,6 +12,8 @@ Comment compiler l'application ?
 Si vous voulez lancer l'application sur Android, un apk du nom de "todolist.apk" est présent à la racine du projet Github.
 La version web est disponible à l'url : https://todolist-8b030.web.app
 
+Des captures d'écran du rendu de l'application sur mon smartphone sont disponibles dans le dossier screenshots à la racine de ce git.
+
 Comment utiliser l'application ?
 - Connectez vous par Google ou Email/Mot de passe
 - Une fois dans votre profil, vous pouvez acceder à vos listes de Todo et/ou changer la langue
