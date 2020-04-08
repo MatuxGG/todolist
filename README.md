@@ -9,6 +9,10 @@ Comment compiler l'application ?
 - Il suffit ensuite d'aller à la racine du projet et de faire un "npm install"
 - Puis ensuite pour lancer sur Web "ionic serve" ou sur mobile "ionic cordova android run"
 
+Comment deployer l'application ?
+Une fois la configuration firebase faite via les différents fichier de configuration firebase, il suffit de faire "firebase deploy".
+Cette commande va déployer l'application, ses dépendances nottament les regles et functions utilisées par l'application directement dans firebase.
+
 Si vous voulez lancer l'application sur Android, un apk du nom de "todolist.apk" est présent à la racine du projet Github.
 La version web est disponible à l'url : https://todolist-8b030.web.app
 
